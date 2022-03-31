@@ -1,7 +1,7 @@
 import { ADD_NEW_CATEGORY, ADD_ITEM_TO_LIST, UPDATE_LIST } from '../actions/pcPartsAction'
 
 let s = JSON.parse(window.localStorage.getItem('cat'))
-let x = JSON.parse(window.localStorage.getItem('cat'));
+let x = JSON.parse(window.localStorage.getItem('listOfItems'));
 
 if (s === null) {
   s = ['podzespoły komputerowe', 'urządzenia peryferyjne', 'oprogramowanie']

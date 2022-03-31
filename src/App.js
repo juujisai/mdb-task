@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux'
 
 import { pcPartsReducer } from './redux/reducers/pcPartsReducer'
+import { toolsReducer } from './redux/reducers/toolsReducer';
 
 import CreateEntry from './layout/CreateEntry'
 import Tools from './layout/Tools'
@@ -14,7 +15,8 @@ import Table from './layout/Table'
 import Statistics from './layout/Statistics'
 
 const rootReducer = combineReducers({
-  pcParts: pcPartsReducer
+  pcParts: pcPartsReducer,
+  tools: toolsReducer
 })
 
 const store = createStore(
