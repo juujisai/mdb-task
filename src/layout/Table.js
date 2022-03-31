@@ -23,7 +23,7 @@ const Table = ({ pcParts: { listOfComponents }, tools: { editActive } }) => {
 
 
   const tableContent = listOfComponents.map(({ name, company, model, category, price }, id) => (
-    <tr className='table-section__th' key={id}>
+    <tr className='table-section__tr' key={id}>
       <td className="table-section__td">{id + 1}</td>
       <td className="table-section__td">{name}</td>
       <td className="table-section__td">{company}</td>

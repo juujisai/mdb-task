@@ -161,7 +161,7 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
 
           {
             showNewOptionBox && <div className="new-option-popup">
-              <label htmlFor="new-category">Dodaj nową kategorię<input type="text" id='new-category' value={newOptionValue} onChange={(e) => setNewOptionValue(e.target.value)} /></label>
+              <label htmlFor="new-category">Dodaj nową kategorię</label><input type="text" id='new-category' value={newOptionValue} onChange={(e) => setNewOptionValue(e.target.value)} />
               {newOptionValue.length > 0 && <button className='add-new' onClick={() => handleNewCategory()}>dodaj</button>}
               <button className='add-new add-new--close' onClick={() => {
                 setShowNewOptionBox(false); setItemCategory(selectCategories[0]); setNewOptionValue('')
@@ -170,7 +170,9 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
           }
 
         </div>
-        <button className='submit-form-item' onClick={(event) => { handleSubmit(event) }}>Dodaj przedmiot</button>
+        <div className="btn-cont">
+          <button className='submit-form-item' onClick={(event) => { handleSubmit(event) }}>Dodaj przedmiot</button>
+        </div>
       </form>
 
       {showAlert && <Alert txt={alertData[0]} type={alertData[1]} />}
