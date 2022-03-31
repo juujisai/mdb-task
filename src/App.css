@@ -18,3 +18,29 @@
 .header-secondary {
   font-size: 1em;
 }
+
+.new-entry-form__div {
+  position: relative;
+}
+
+.category-of-item--new {
+  color: #aaa;
+}
+
+.new-option-popup {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 20px;
+  background-color: #ddd;
+}
+
+
+
+
+
+.submit-form-item {
+  margin-top: 20px;
+}
