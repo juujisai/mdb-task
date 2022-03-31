@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Loader from '../components/Loader'
-import { addNewCategory } from '../redux/actions/pcPartsAction'
+import { addNewCategory, addItemToList } from '../redux/actions/pcPartsAction'
 import Alert from '../components/Alert'
 
-const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
+const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCategory, addItem }) => {
   // state value for select options
   const [optionsToSelect, setOptionsToSelect] = React.useState([])
 
@@ -19,6 +19,9 @@ const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
   const [itemModel, setItemModel] = React.useState('')
   const [itemCategory, setItemCategory] = React.useState(selectCategories[0])
   const [itemPrice, setItemPrice] = React.useState(0)
+
+  const [validation, setValidation] = React.useState({ name: false, company: false, model: false, passed: false })
+
 
   // state for alert
   const [showAlert, setShowAlert] = React.useState(false)
@@ -52,11 +55,50 @@ const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
     <option value={item} key={id}>{item}</option>
   ))
 
+  // validation
+  const validate = () => {
+    let name = false
+    let company = false
+    let model = false
+    let passed = false
+
+    if (!itemName.length) { name = true }
+    if (!itemCompany.length) { company = true }
+    if (!itemModel.length) { model = true }
+
+    if (!name && !company && !model) { passed = true }
+
+    setValidation({ name, company, model, passed })
+    return passed
+  }
+
+  // clearInputs
+  const clearInputs = () => {
+    setItemName('')
+    setItemCompany('')
+    setItemModel('')
+    setItemPrice(0)
+    setItemCategory(selectCategories[0])
+  }
+
   // handle submit
   const handleSubmit = (event) => {
-    console.log('click', itemName, itemCompany, itemModel, itemPrice, itemCategory)
-
     event.preventDefault()
+
+    console.log('click')
+    const validationResult = validate()
+
+    if (validationResult) {
+      setShowAlert(true)
+      setAlertData(['Pomyślnie dodano przedmiot do listy', 'success'])
+
+      addItem({ name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory })
+      clearInputs()
+    } else {
+      setShowAlert(true)
+      setAlertData(['Uzupełnij brakujące dane', 'warning'])
+    }
+
   }
 
   // handle new category
@@ -90,16 +132,16 @@ const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
       <h2 className="header-secondary">Dodaj przedmiot do tabeli</h2>
       <form className="new-entry-form">
         <div className="new-entry-form__div">
-          <label htmlFor="name-of-item">Nazwa przedmiotu</label><input type="text" id='name-of-item' value={itemName} onChange={(e) => setItemName(e.target.value)} />
+          <label htmlFor="name-of-item">Nazwa przedmiotu</label><input type="text" id='name-of-item' value={itemName} onChange={(e) => setItemName(e.target.value)} /> {validation.name && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
-          <label htmlFor="company-of-item">Firma</label><input type="text" id='company-of-item' value={itemCompany} onChange={(e) => setItemCompany(e.target.value)} />
+          <label htmlFor="company-of-item">Firma</label><input type="text" id='company-of-item' value={itemCompany} onChange={(e) => setItemCompany(e.target.value)} /> {validation.company && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
-          <label htmlFor="model-of-item">Model</label><input type="text" id='model-of-item' value={itemModel} onChange={(e) => setItemModel(e.target.value)} />
+          <label htmlFor="model-of-item">Model</label><input type="text" id='model-of-item' value={itemModel} onChange={(e) => setItemModel(e.target.value)} /> {validation.model && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
-          <label htmlFor="model-of-item">Cena</label><input type="number" id='model-of-item' min='0' value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} /> zł
+          <label htmlFor="model-of-item">Cena</label><input type="number" id='model-of-item' min='0' value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} /> zł {validation.price && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
           <label htmlFor="category-of-item">Kategoria</label>
@@ -142,7 +184,8 @@ const mapStateToProps = ({ pcParts }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addCategory: (data) => dispatch(addNewCategory(data))
+    addCategory: (data) => dispatch(addNewCategory(data)),
+    addItem: (item) => dispatch(addItemToList(item))
   }
 }
 
