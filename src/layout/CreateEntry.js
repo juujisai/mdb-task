@@ -94,6 +94,7 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
 
       addItem({ name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory })
       clearInputs()
+
     } else {
       setShowAlert(true)
       setAlertData(['Uzupełnij brakujące dane', 'warning'])

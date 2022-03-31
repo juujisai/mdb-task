@@ -1,3 +1,5 @@
+import React from 'react';
+
 import './App.css';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
@@ -22,6 +24,14 @@ const store = createStore(
 
 
 function App() {
+  React.useEffect(() => {
+    let i = window.localStorage.getItem('listOfItems');
+    if (i === null) {
+      window.localStorage.setItem('listOfItems', JSON.stringify([]));
+    }
+
+    console.log('pobieram local storage')
+  })
   return (
     <Provider store={store}>
       <div className="App" >

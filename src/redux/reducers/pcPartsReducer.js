@@ -13,10 +13,16 @@ export const pcPartsReducer = (state = initialStore, action) => {
     return { ...state, selectCategories }
   }
   if (action.type === ADD_ITEM_TO_LIST) {
-    return { ...state, listOfComponents: [...state.listOfComponents, action.payload] }
+    const listOfComponents = [...state.listOfComponents, action.payload]
+    window.localStorage.setItem('listOfItems', JSON.stringify(listOfComponents));
+
+    return { ...state, listOfComponents }
   }
   if (action.type === UPDATE_LIST) {
-    return { ...state, listOfComponents: [...action.payload] }
+    const listOfComponents = [...action.payload]
+    window.localStorage.setItem('listOfItems', JSON.stringify(listOfComponents));
+
+    return { ...state, listOfComponents }
   }
   return state
 }
