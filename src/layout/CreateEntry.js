@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Loader from '../components/Loader'
 import { addNewCategory } from '../redux/actions/pcPartsAction'
-
+import Alert from '../components/Alert'
 
 const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
   // state value for select options
@@ -20,13 +20,30 @@ const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
   const [itemCategory, setItemCategory] = React.useState(selectCategories[0])
   const [itemPrice, setItemPrice] = React.useState(0)
 
+  // state for alert
+  const [showAlert, setShowAlert] = React.useState(false)
+  const [alertData, setAlertData] = React.useState(['default', 'success'])
+  const alertDuration = 3000
 
-
+  // component cycle for reading categories
   React.useEffect(() => {
     console.log('render')
     setOptionsToSelect(selectCategories)
-
   }, [selectCategories])
+
+  // component cycle for alert
+  React.useEffect(() => {
+    let timeout;
+    if (showAlert) {
+      timeout = setTimeout(() => { setShowAlert(false) }, alertDuration)
+    }
+
+    // clear timeout if component is unmounted
+    return () => { clearTimeout(timeout) }
+
+  }, [showAlert])
+
+
 
   if (!optionsToSelect.length) return <Loader />
 
@@ -52,6 +69,10 @@ const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
 
     // select new option after adding it
     setOptionsToSelect(selectCategories)
+
+    // handle alert
+    setAlertData(['dodano nową kategorię', 'success'])
+    setShowAlert(true)
 
     // clear new option value
     setNewOptionValue('')
@@ -109,6 +130,7 @@ const CreateEntry = ({ pcParts: { selectCategories }, addCategory }) => {
         <button className='submit-form-item' onClick={(event) => { handleSubmit(event) }}>Dodaj przedmiot</button>
       </form>
 
+      {showAlert && <Alert txt={alertData[0]} type={alertData[1]} />}
 
     </div>
   );

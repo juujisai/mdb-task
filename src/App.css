@@ -44,3 +44,29 @@
 .submit-form-item {
   margin-top: 20px;
 }
+
+
+
+/* alert */
+.alert {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  line-height: 4;
+  text-align: center;
+  color: white;
+}
+
+
+.alert-danger {
+  background-color: #ff3300;
+}
+
+.alert-success {
+  background-color: #00cc66;
+}
+
+.alert-warning {
+  background-color: #ffff66;
+}
