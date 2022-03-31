@@ -49,7 +49,7 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
 
 
   if (!optionsToSelect.length) return <Loader />
-
+  console.log('kod relog')
   // for displaying options
   const options = optionsToSelect.map((item, id) => (
     <option value={item} key={id}>{item}</option>
