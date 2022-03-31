@@ -3,3 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+
+.main-header {
+  margin: 40px;
+}
+
+.createEntry-layout {
+  padding: 25px;
+  margin-bottom: 40px;
+  background-color: #ddd;
+}
+
+.header-secondary {
+  font-size: 1em;
+}

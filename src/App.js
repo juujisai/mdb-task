@@ -6,6 +6,11 @@ import { Provider } from 'react-redux'
 
 import { pcPartsReducer } from './redux/reducers/pcPartsReducer'
 
+import CreateEntry from './layout/CreateEntry'
+import Tools from './layout/Tools'
+import Table from './layout/Table'
+import Statistics from './layout/Statistics'
+
 const rootReducer = combineReducers({
   pcParts: pcPartsReducer
 })
@@ -20,7 +25,11 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App" >
-        <div></div>
+        <h1 className="main-header">Podlicz koszty nowego stanowiska komputerowego</h1>
+        <CreateEntry />
+        <Tools />
+        <Table />
+        <Statistics />
       </div>
     </Provider>
   );

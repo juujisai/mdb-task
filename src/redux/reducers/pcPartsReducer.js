@@ -1,7 +1,7 @@
 
 
 const initialStore = {
-
+  selectCategories: ['podzespoły komputerowe', 'urządzenia peryferyjne', 'oprogramowanie']
 }
 
 
