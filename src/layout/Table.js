@@ -1,17 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
+import { setSumOfComponents } from '../redux/actions/pcPartsAction'
 
-const Table = ({ pcParts: { listOfComponents }, tools: { editActive } }) => {
+const Table = ({ pcParts: { listOfComponents }, tools: { editActive }, addSumToReducer }) => {
   // active tools state
   const [isEditActive, setIsEditActive] = React.useState(false)
+  const [sum, setSum] = React.useState(0)
 
   React.useEffect(() => {
     setIsEditActive(editActive)
 
   }, [editActive])
 
-  console.log(isEditActive)
+  React.useEffect(() => {
+
+    const sum = listOfComponents.reduce((partialSum, a) => partialSum + Number(a.price), 0)
+    setSum(sum)
+    addSumToReducer(sum)
+  }, [listOfComponents, addSumToReducer])
+
+  // console.log(isEditActive)
 
   const handleEdit = (item) => {
     console.log('edit')
@@ -31,12 +40,14 @@ const Table = ({ pcParts: { listOfComponents }, tools: { editActive } }) => {
       <td className="table-section__td">{category}</td>
       <td className="table-section__td">{price}</td>
       {
-        isEditActive && <td className="table-section__td table-section__td--edit"><span className='edit-btn' onClick={(item) => handleEdit(item)}><AiOutlineEdit /></span><span className='edit-btn' onClick={(item) => handleDelete(item)}><AiOutlineDelete /></span></td>
+        isEditActive && <td className="table-section__td table-section__td--edit"><span className='edit-btn' onClick={(item) => handleEdit(item)}><AiOutlineEdit /></span><span className='edit-btn delete-tbl-btn' onClick={(item) => handleDelete(item)}><AiOutlineDelete /></span></td>
       }
 
 
     </tr>
   ))
+
+
 
   return (
     <div className='table-section'>
@@ -56,6 +67,15 @@ const Table = ({ pcParts: { listOfComponents }, tools: { editActive } }) => {
           {tableContent}
         </tbody>
       </table>
+      <div className="small-statistics">
+        <div className="small-statistics__div">
+          <span className="small-statistics__span">łączny koszt stanowiska:</span> <span className="small-statistics__span">{sum} zł</span>
+        </div>
+        <div className="small-statistics__div">
+
+          <span className="small-statistics__span">pozycji w zestawieniu:</span> <span className="small-statistics__span">{listOfComponents.length}</span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -66,7 +86,7 @@ const mapStateToProps = ({ pcParts, tools }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    addSumToReducer: (sum) => dispatch(setSumOfComponents(sum))
 
   }
 }

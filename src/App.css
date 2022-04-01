@@ -85,6 +85,7 @@
 
 
 .btn-cont {
+  text-align: center;
   width: 100%;
 }
 
@@ -214,4 +215,32 @@
 
 .table-section__td--edit {
   background-color: #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.small-statistics {
+  margin: 25px 10% 25px auto;
+  text-align: right;
+}
+
+.small-statistics__div {
+  margin-left: auto;
+  width: 30%;
+  min-width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.small-statistics__span:nth-child(2) {
+  font-weight: bold;
+}
+
+.edit-btn {
+  cursor: pointer
+}
+
+.delete-tbl-btn {
+  color: #ff3300;
 }

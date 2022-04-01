@@ -13,3 +13,8 @@ export const addItemToList = (item) => {
 export const updateList = (list) => {
   return { type: UPDATE_LIST, payload: list }
 }
+
+export const SET_SUM_OF_COMPONENTS = 'SET_SUM_OF_COMPONENTS'
+export const setSumOfComponents = (sum) => {
+  return { type: SET_SUM_OF_COMPONENTS, payload: sum }
+}
