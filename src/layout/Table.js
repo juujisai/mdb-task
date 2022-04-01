@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import { BsSave } from 'react-icons/bs'
 import { setSumOfComponents, updateList } from '../redux/actions/pcPartsAction'
+import { FcCancel } from 'react-icons/fc'
 
 const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editActive }, addSumToReducer, update }) => {
   // active tools state
@@ -71,6 +72,12 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
 
   }
 
+  const cancelEdition = () => {
+
+    setEditedField('')
+
+  }
+
   const handleDelete = (item) => {
     let copy = listOfComponents
     copy = copy.filter(item2 => item2 !== item)
@@ -106,7 +113,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
           isEditActive && <td className="table-section__td table-section__td--edit">
             {!isRowEdited ? <span className='edit-btn' onClick={() => handleEdit(item, isRowEdited)}><AiOutlineEdit /></span>
               : <span className='edit-btn' onClick={() => handleSave()}><BsSave /></span>}
-
+            {isRowEdited && <span className="edit-btn" onClick={() => cancelEdition()}><FcCancel /></span>}
             <span className='edit-btn delete-tbl-btn' onClick={() => handleDelete(item)}><AiOutlineDelete /></span>
           </td>
         }
