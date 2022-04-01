@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
-import { setSumOfComponents } from '../redux/actions/pcPartsAction'
+import { setSumOfComponents, updateList } from '../redux/actions/pcPartsAction'
 
-const Table = ({ pcParts: { listOfComponents }, tools: { editActive }, addSumToReducer }) => {
+const Table = ({ pcParts: { listOfComponents }, tools: { editActive }, addSumToReducer, update }) => {
   // active tools state
   const [isEditActive, setIsEditActive] = React.useState(false)
   const [sum, setSum] = React.useState(0)
@@ -27,20 +27,25 @@ const Table = ({ pcParts: { listOfComponents }, tools: { editActive }, addSumToR
   }
 
   const handleDelete = (item) => {
+    let copy = listOfComponents
+    copy = copy.filter(item2 => item2 !== item)
+    update(copy)
+
+    console.log(item)
     console.log('delete')
   }
 
 
-  const tableContent = listOfComponents.map(({ name, company, model, category, price }, id) => (
+  const tableContent = listOfComponents.map((item, id) => (
     <tr className='table-section__tr' key={id}>
       <td className="table-section__td">{id + 1}</td>
-      <td className="table-section__td">{name}</td>
-      <td className="table-section__td">{company}</td>
-      <td className="table-section__td">{model}</td>
-      <td className="table-section__td">{category}</td>
-      <td className="table-section__td">{price}</td>
+      <td className="table-section__td">{item.name}</td>
+      <td className="table-section__td">{item.company}</td>
+      <td className="table-section__td">{item.model}</td>
+      <td className="table-section__td">{item.category}</td>
+      <td className="table-section__td">{Number(item.price)}</td>
       {
-        isEditActive && <td className="table-section__td table-section__td--edit"><span className='edit-btn' onClick={(item) => handleEdit(item)}><AiOutlineEdit /></span><span className='edit-btn delete-tbl-btn' onClick={(item) => handleDelete(item)}><AiOutlineDelete /></span></td>
+        isEditActive && <td className="table-section__td table-section__td--edit"><span className='edit-btn' onClick={() => handleEdit(item)}><AiOutlineEdit /></span><span className='edit-btn delete-tbl-btn' onClick={() => handleDelete(item)}><AiOutlineDelete /></span></td>
       }
 
 
@@ -86,8 +91,8 @@ const mapStateToProps = ({ pcParts, tools }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addSumToReducer: (sum) => dispatch(setSumOfComponents(sum))
-
+    addSumToReducer: (sum) => dispatch(setSumOfComponents(sum)),
+    update: (list) => dispatch(updateList(list))
   }
 }
 
