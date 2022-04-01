@@ -5,6 +5,7 @@ import { BsSave } from 'react-icons/bs'
 import { setSumOfComponents, updateList, updateListWithoutPost } from '../redux/actions/pcPartsAction'
 import { FcCancel } from 'react-icons/fc'
 import { FaSortAmountDown } from 'react-icons/fa'
+import EditMoveHandle from '../components/EditMoveHandle';
 
 const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editActive }, addSumToReducer, update, updateWithoutPost }) => {
   // active tools state
@@ -93,12 +94,12 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
     const isRowEdited = item === editedField
 
     return (
-      <tr className='table-section__tr' key={id}>
+      <tr className='table-section__tr table-row-draggable' key={id}>
         <td className="table-section__td">{id + 1}</td>
         <td className="table-section__td">
           <input className='table-section__input' type="text" value={isRowEdited ? itemName : item.name} disabled={!isRowEdited} onChange={(e) => setItemName(e.target.value)} />
         </td>
-        <td className="table-section__td">
+        <td className="table-section__td" >
           <input className='table-section__input' type="text" value={isRowEdited ? itemCompany : item.company} disabled={!isRowEdited} onChange={(e) => setItemCompany(e.target.value)} />
         </td>
         <td className="table-section__td">
@@ -118,7 +119,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
             <span className='edit-btn delete-tbl-btn' onClick={() => handleDelete(item)}><AiOutlineDelete /></span>
           </td>
         }
-
+        {isEditActive && <td className='move-handle'><EditMoveHandle data={item} /></td>}
 
       </tr>
     )
@@ -220,7 +221,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
     <div className='table-section'>
       <table className="table-section__table">
         <tbody>
-          <tr className='table-section__tr'>
+          <tr className='table-section__tr' >
             <th className='table-section__th'>lp</th>
             <th className='table-section__th'>nazwa <span className="sort-table-btn btn-name" onClick={() => handleSortBtn('name')}><FaSortAmountDown /></span></th>
             <th className='table-section__th'>firma <span className="sort-table-btn btn-company" onClick={() => handleSortBtn('company')}><FaSortAmountDown /></span></th>

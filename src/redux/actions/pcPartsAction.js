@@ -24,3 +24,8 @@ export const UPDATE_LIST_WITHOUT_POST = 'UPDATE_LIST_WITHOUT_POST'
 export const updateListWithoutPost = (list) => {
   return { type: UPDATE_LIST_WITHOUT_POST, payload: list }
 }
+
+export const COPY_MOVED_DATA = 'COPY_MOVED_DATA'
+export const copyMovedData = (data) => {
+  return { type: COPY_MOVED_DATA, payload: data }
+}

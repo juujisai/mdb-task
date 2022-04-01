@@ -267,6 +267,7 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%) rotate(0);
+  transform-origin: center;
   font-size: 0.8em;
   transition: .3s;
   cursor: pointer;
@@ -275,4 +276,53 @@
 .rotate {
   transform: translateY(-50%) rotate(180deg);
 
+}
+
+
+/* drag and drop */
+.move-handle {
+  background-color: white;
+
+}
+
+.drag-icon {
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 10px;
+  /* background-color: red; */
+}
+
+.drag-icon::after {
+  display: block;
+  position: absolute;
+  content: 'przeciągnij i upuść';
+  left: 20%;
+  top: 0%;
+  font-size: 0.7em;
+  width: 300px;
+  opacity: 0;
+}
+
+.drag-icon:hover::after {
+  opacity: 1;
+}
+
+.table-section__tr {
+  transition: .1s;
+}
+
+
+.table-section__tr {
+  transition: .3s;
+}
+
+.table-section__tr.drag-hint {
+  border: 1px solid #ffc49a;
+  background-color: #feffb4;
+}
+
+.table-section__tr.drag-active {
+  border: 1px solid #ffa5a5;
+  background-color: #ffe7e7;
 }
