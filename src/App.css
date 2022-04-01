@@ -189,6 +189,7 @@
 
 
 .table-section__th {
+  position: relative;
   padding: 5px 40px;
   background-color: var(--darkBlue);
   color: white;
@@ -257,4 +258,21 @@
 .table-section__input:disabled {
   background-color: transparent;
   border: none;
+}
+
+
+/* sort btn */
+.sort-table-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0);
+  font-size: 0.8em;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.rotate {
+  transform: translateY(-50%) rotate(180deg);
+
 }

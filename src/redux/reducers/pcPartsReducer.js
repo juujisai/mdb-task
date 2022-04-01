@@ -1,4 +1,4 @@
-import { ADD_NEW_CATEGORY, ADD_ITEM_TO_LIST, UPDATE_LIST, SET_SUM_OF_COMPONENTS } from '../actions/pcPartsAction'
+import { ADD_NEW_CATEGORY, ADD_ITEM_TO_LIST, UPDATE_LIST, SET_SUM_OF_COMPONENTS, UPDATE_LIST_WITHOUT_POST } from '../actions/pcPartsAction'
 
 let s = JSON.parse(window.localStorage.getItem('cat'))
 let x = JSON.parse(window.localStorage.getItem('listOfItems'));
@@ -42,7 +42,12 @@ export const pcPartsReducer = (state = initialStore, action) => {
   if (action.type === SET_SUM_OF_COMPONENTS) {
     return { ...state, sumPriceOfComponents: action.payload }
   }
+  if (action.type === UPDATE_LIST_WITHOUT_POST) {
+    console.log('m')
+    const listOfComponents = [...action.payload]
+    return { ...state, listOfComponents }
 
+  }
 
 
 

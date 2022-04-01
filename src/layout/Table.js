@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import { BsSave } from 'react-icons/bs'
-import { setSumOfComponents, updateList } from '../redux/actions/pcPartsAction'
+import { setSumOfComponents, updateList, updateListWithoutPost } from '../redux/actions/pcPartsAction'
 import { FcCancel } from 'react-icons/fc'
+import { FaSortAmountDown } from 'react-icons/fa'
 
-const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editActive }, addSumToReducer, update }) => {
+const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editActive }, addSumToReducer, update, updateWithoutPost }) => {
   // active tools state
   const [isEditActive, setIsEditActive] = React.useState(false)
   const [sum, setSum] = React.useState(0)
@@ -124,6 +125,96 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
   })
 
 
+  // sorting button
+  const handleSortBtn = (which) => {
+    const element = document.querySelector(`.btn-${which}`)
+    let allEmenents = [...document.querySelectorAll('.sort-table-btn')].filter(item => item !== element)
+    // remove other sortings 
+    allEmenents.forEach(item => item.classList.remove('rotate'))
+
+    element.classList.toggle('rotate')
+    // check direction
+    const descending = element.classList.contains('rotate') ? true : false
+    let copy = listOfComponents
+    if (which === 'name') {
+      if (descending) {
+        copy.sort((a, b) => {
+          if (b.name > a.name) { return 1 }
+          if (b.name < a.name) { return -1 }
+          return 0
+        })
+      } else {
+        copy.sort((a, b) => {
+          if (b.name < a.name) { return 1 }
+          if (b.name > a.name) { return -1 }
+          return 0
+        })
+      }
+    }
+    if (which === 'company') {
+      if (descending) {
+        copy.sort((a, b) => {
+          if (b.company > a.company) { return 1 }
+          if (b.company < a.company) { return -1 }
+          return 0
+        })
+      } else {
+        copy.sort((a, b) => {
+          if (b.company < a.company) { return 1 }
+          if (b.company > a.company) { return -1 }
+          return 0
+        })
+      }
+    }
+    if (which === 'model') {
+      if (descending) {
+        copy.sort((a, b) => {
+          if (b.model > a.model) { return 1 }
+          if (b.model < a.model) { return -1 }
+          return 0
+        })
+      } else {
+        copy.sort((a, b) => {
+          if (b.model < a.model) { return 1 }
+          if (b.model > a.model) { return -1 }
+          return 0
+        })
+      }
+    }
+    if (which === 'price') {
+      if (descending) {
+        copy.sort((a, b) => {
+          if (b.price > a.price) { return 1 }
+          if (b.price < a.price) { return -1 }
+          return 0
+        })
+      } else {
+        copy.sort((a, b) => {
+          if (b.price < a.price) { return 1 }
+          if (b.price > a.price) { return -1 }
+          return 0
+        })
+      }
+    }
+    if (which === 'category') {
+      if (descending) {
+        copy.sort((a, b) => {
+          if (b.category > a.category) { return 1 }
+          if (b.category < a.category) { return -1 }
+          return 0
+        })
+      } else {
+        copy.sort((a, b) => {
+          if (b.category < a.category) { return 1 }
+          if (b.category > a.category) { return -1 }
+          return 0
+        })
+      }
+    }
+
+    // update without posting to local storage or further - so it will go back to not sorted one after refreshing
+    updateWithoutPost(copy)
+  }
 
   return (
     <div className='table-section'>
@@ -131,11 +222,11 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
         <tbody>
           <tr className='table-section__tr'>
             <th className='table-section__th'>lp</th>
-            <th className='table-section__th'>nazwa</th>
-            <th className='table-section__th'>firma</th>
-            <th className='table-section__th'>model</th>
-            <th className='table-section__th'>kategoria</th>
-            <th className='table-section__th'>cena</th>
+            <th className='table-section__th'>nazwa <span className="sort-table-btn btn-name" onClick={() => handleSortBtn('name')}><FaSortAmountDown /></span></th>
+            <th className='table-section__th'>firma <span className="sort-table-btn btn-company" onClick={() => handleSortBtn('company')}><FaSortAmountDown /></span></th>
+            <th className='table-section__th'>model <span className="sort-table-btn btn-model" onClick={() => handleSortBtn('model')}><FaSortAmountDown /></span></th>
+            <th className='table-section__th'>kategoria <span className="sort-table-btn btn-category" onClick={() => handleSortBtn('category')}><FaSortAmountDown /></span></th>
+            <th className='table-section__th'>cena <span className="sort-table-btn btn-price" onClick={() => handleSortBtn('price')}><FaSortAmountDown /></span></th>
             {
               isEditActive && <th className='table-section__th table-section__th--edit'>edit</th>
             }
@@ -163,7 +254,8 @@ const mapStateToProps = ({ pcParts, tools }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addSumToReducer: (sum) => dispatch(setSumOfComponents(sum)),
-    update: (list) => dispatch(updateList(list))
+    update: (list) => dispatch(updateList(list)),
+    updateWithoutPost: (list) => dispatch(updateListWithoutPost(list))
   }
 }
 

@@ -18,3 +18,9 @@ export const SET_SUM_OF_COMPONENTS = 'SET_SUM_OF_COMPONENTS'
 export const setSumOfComponents = (sum) => {
   return { type: SET_SUM_OF_COMPONENTS, payload: sum }
 }
+
+export const UPDATE_LIST_WITHOUT_POST = 'UPDATE_LIST_WITHOUT_POST'
+
+export const updateListWithoutPost = (list) => {
+  return { type: UPDATE_LIST_WITHOUT_POST, payload: list }
+}
