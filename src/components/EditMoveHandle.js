@@ -67,7 +67,7 @@ const EditMoveHandle = ({ data, pcParts: { listOfComponents, dataMoved }, copy, 
     // get ids of those 
     const idOfDragged = others.findIndex(i => i === parent)
     const idOfPlaceToDrop = others.findIndex(i => i === droppedWhere)
-    console.log(idOfDragged, idOfPlaceToDrop)
+    // console.log(idOfDragged, idOfPlaceToDrop)
 
     parent.classList.remove('dragging-right-now')
 

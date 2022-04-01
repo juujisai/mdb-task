@@ -44,7 +44,6 @@ export const pcPartsReducer = (state = initialStore, action) => {
     return { ...state, sumPriceOfComponents: action.payload }
   }
   if (action.type === UPDATE_LIST_WITHOUT_POST) {
-    console.log('m')
     const listOfComponents = [...action.payload]
     return { ...state, listOfComponents }
 
