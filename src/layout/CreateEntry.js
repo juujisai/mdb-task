@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Loader from '../components/Loader'
 import { addNewCategory, addItemToList } from '../redux/actions/pcPartsAction'
 import Alert from '../components/Alert'
+import { v4 as uuidv4 } from 'uuid';
 
 const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCategory, addItem }) => {
   // state value for select options
@@ -92,7 +93,7 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
       setShowAlert(true)
       setAlertData(['Pomyślnie dodano przedmiot do listy', 'success'])
 
-      addItem({ name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory })
+      addItem({ id: uuidv4(), name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory })
       clearInputs()
 
     } else {

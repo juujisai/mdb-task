@@ -58,12 +58,12 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
     oldDataRef.current = item
   }
 
-  const handleSave = () => {
+  const handleSave = (item) => {
     console.log('zapisuję')
     let copy = listOfComponents
     const idOfItemThatChanges = copy.findIndex(item => item === oldDataRef.current)
 
-    const itemToPush = { name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory }
+    const itemToPush = { id: item.id, name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory }
 
     copy.splice(idOfItemThatChanges, 1, itemToPush)
 
@@ -114,7 +114,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
         {
           isEditActive && <td className="table-section__td table-section__td--edit">
             {!isRowEdited ? <span className='edit-btn' onClick={() => handleEdit(item, isRowEdited)}><AiOutlineEdit /></span>
-              : <span className='edit-btn' onClick={() => handleSave()}><BsSave /></span>}
+              : <span className='edit-btn' onClick={() => handleSave(item)}><BsSave /></span>}
             {isRowEdited && <span className="edit-btn" onClick={() => cancelEdition()}><FcCancel /></span>}
             <span className='edit-btn delete-tbl-btn' onClick={() => handleDelete(item)}><AiOutlineDelete /></span>
           </td>

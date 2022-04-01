@@ -49,6 +49,8 @@ const EditMoveHandle = ({ data, pcParts: { listOfComponents, dataMoved }, copy, 
   const handleDragOver = (e) => {
     // remove default drop
     e.preventDefault()
+
+    // draggableElements.forEach(item=> item.classList.remove())
   }
 
 
@@ -65,15 +67,21 @@ const EditMoveHandle = ({ data, pcParts: { listOfComponents, dataMoved }, copy, 
     // get ids of those 
     const idOfDragged = others.findIndex(i => i === parent)
     const idOfPlaceToDrop = others.findIndex(i => i === droppedWhere)
+    console.log(idOfDragged, idOfPlaceToDrop)
 
+    parent.classList.remove('dragging-right-now')
 
     // switch data
     let copyOfData = [...listOfComponents]
     copyOfData.splice(idOfDragged, 1)
     copyOfData.splice(idOfPlaceToDrop, 0, dataMoved)
 
+    // console.log(copyOfData)
+
     // send to reducer
     update(copyOfData)
+    copy({})
+
   }
 
 
