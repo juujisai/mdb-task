@@ -244,3 +244,17 @@
 .delete-tbl-btn {
   color: #ff3300;
 }
+
+
+/* inputs */
+.table-section__input {
+  display: block;
+  width: auto;
+  text-align: center;
+  max-width: 150px;
+}
+
+.table-section__input:disabled {
+  background-color: transparent;
+  border: none;
+}
