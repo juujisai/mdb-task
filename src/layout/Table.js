@@ -63,7 +63,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
     let copy = listOfComponents
     const idOfItemThatChanges = copy.findIndex(item => item === oldDataRef.current)
 
-    const itemToPush = { id: item.id, name: itemName, company: itemCompany, model: itemModel, price: itemPrice, category: itemCategory }
+    const itemToPush = { id: item.id, name: itemName, company: itemCompany, model: itemModel, price: Number(itemPrice), category: itemCategory }
 
     copy.splice(idOfItemThatChanges, 1, itemToPush)
 
