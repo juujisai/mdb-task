@@ -7,7 +7,7 @@ import { FcCancel } from 'react-icons/fc'
 import { FaSortAmountDown } from 'react-icons/fa'
 import EditMoveHandle from '../components/EditMoveHandle';
 
-const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editActive }, addSumToReducer, update, updateWithoutPost }) => {
+const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory }, tools: { editActive }, addSumToReducer, update, updateWithoutPost }) => {
   // active tools state
   const [isEditActive, setIsEditActive] = React.useState(false)
   const [sum, setSum] = React.useState(0)
@@ -90,6 +90,10 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
   }
 
   let dataToShowInTable = listOfComponents
+  if (filterByCategory !== 'all') {
+    dataToShowInTable = dataToShowInTable.filter(item => item.category === filterByCategory)
+  }
+
   const tableContent = dataToShowInTable.map((item, id) => {
     const isRowEdited = item === editedField
 
