@@ -32,11 +32,16 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
   }, [editActive])
 
   React.useEffect(() => {
+    let d = listOfComponents
+    if (filterByCategory !== 'all') {
+      d = d.filter(item => item.category === filterByCategory)
+    }
 
-    const sum = listOfComponents.reduce((partialSum, a) => partialSum + Number(a.price), 0)
+
+    const sum = d.reduce((partialSum, a) => partialSum + Number(a.price), 0)
     setSum(sum)
     addSumToReducer(sum)
-  }, [listOfComponents, addSumToReducer])
+  }, [listOfComponents, addSumToReducer, filterByCategory])
 
   // console.log(isEditActive)
   // console.log('renderuje table')
@@ -79,7 +84,6 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
     setEditedField('')
 
   }
-
   const handleDelete = (item) => {
     let copy = listOfComponents
     copy = copy.filter(item2 => item2 !== item)
@@ -91,6 +95,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
 
   let dataToShowInTable = listOfComponents
   if (filterByCategory !== 'all') {
+
     dataToShowInTable = dataToShowInTable.filter(item => item.category === filterByCategory)
   }
 
