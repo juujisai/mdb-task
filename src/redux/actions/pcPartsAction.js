@@ -29,3 +29,8 @@ export const COPY_MOVED_DATA = 'COPY_MOVED_DATA'
 export const copyMovedData = (data) => {
   return { type: COPY_MOVED_DATA, payload: data }
 }
+
+export const ADD_NEW_STAT_TO_SHOW = 'ADD_NEW_STAT_TO_SHOW'
+export const addNewStatToShow = (data) => {
+  return { type: ADD_NEW_STAT_TO_SHOW, payload: data }
+}
