@@ -11,7 +11,9 @@ const Statistics = ({ pcParts }) => {
   const statsToShow = stats.map((item, id) => {
     let partsToCount = pcParts.listOfComponents
 
-    let data = partsToCount.filter(item2 => item2[item.col] === item.value)
+    let data = []
+    item.col === 'price' ? data = partsToCount.filter(item2 => item2.price <= item.value) : data = partsToCount.filter(item2 => item2[item.col] === item.value)
+
 
     const sum = Number(data.reduce((partialSum, a) => partialSum + Number(a.price), 0))
     let avg
@@ -22,7 +24,7 @@ const Statistics = ({ pcParts }) => {
         <td className="table-section__td">{id + 1}</td>
         <td className="table-section__td">{item.operator === 'sum' ? 'suma' : 'średnia'}</td>
         <td className="table-section__td">{item.col}</td>
-        <td className="table-section__td">{item.value}</td>
+        <td className="table-section__td">{item.col === 'price' && 'poniżej '}{item.value}</td>
         <td className="table-section__td">{item.operator === 'sum' ? sum : avg} zł</td>
 
       </tr>

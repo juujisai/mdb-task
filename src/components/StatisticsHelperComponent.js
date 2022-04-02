@@ -83,9 +83,9 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
   const optionsModels = listModels.map((item, id) =>
     (<option value={item} key={id}>{item}</option>)
   )
-  const optionsPrices = listPrices.map((item, id) =>
-    (<option value={item} key={id}>{item}</option>)
-  )
+  // const optionsPrices = listPrices.map((item, id) =>
+  //   (<option value={item} key={id}>{item}</option>)
+  // )
   const optionsCategories = listCategories.map((item, id) =>
     (<option value={item} key={id}>{item}</option>)
   )
@@ -93,7 +93,7 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
 
   React.useEffect(() => {
     const decideInitialValue = () => {
-      colPicked === 'name' ? setValuePicked(listNames[0]) : colPicked === 'company' ? setValuePicked(listCompanies[0]) : colPicked === 'model' ? setValuePicked(listModels[0]) : colPicked === 'price' ? setValuePicked(listPrices[0]) : setValuePicked(listCategories[0])
+      colPicked === 'name' ? setValuePicked(listNames[0]) : colPicked === 'company' ? setValuePicked(listCompanies[0]) : colPicked === 'model' ? setValuePicked(listModels[0]) : colPicked === 'price' ? setValuePicked(listPrices.sort()[listPrices.length - 1]) : setValuePicked(listCategories[0])
 
     }
 
@@ -129,7 +129,10 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
         {colPicked === 'company' && <select name="select-company" id="select-company" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsCompanies}</select>}
         {colPicked === 'model' && <select name="select-model" id="select-model" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsModels}</select>}
         {colPicked === 'category' && <select name="select-category" id="select-category" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsCategories}</select>}
-        {colPicked === 'price' && <select name="select-price" id="select-price" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsPrices}</select>}
+        {colPicked === 'price' && <>
+          <input type="range" min={listPrices.sort()[0]} max={listPrices.sort()[listPrices.length - 1]} value={valuePicked} onChange={(e) => setValuePicked(e.target.value)} /> <span className="price-show">{valuePicked}</span></>
+          // <select name="select-price" id="select-price" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsPrices}</select>
+        }
 
 
       </div>
