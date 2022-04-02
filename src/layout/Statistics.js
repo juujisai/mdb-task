@@ -17,7 +17,6 @@ const Statistics = ({ pcParts }) => {
     let avg
     data.length === 0 ? avg = 0 : avg = (sum / data.length).toFixed(2)
 
-    console.log(data)
     return (
       <tr className="table-section__tr" key={id}>
         <td className="table-section__td">{id + 1}</td>
@@ -33,7 +32,6 @@ const Statistics = ({ pcParts }) => {
 
 
 
-  console.log('rerender stat')
 
   return (
     <div className='statistic-section'>

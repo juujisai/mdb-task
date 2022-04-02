@@ -89,8 +89,8 @@ const Table = ({ pcParts: { listOfComponents, selectCategories }, tools: { editA
     console.log('delete')
   }
 
-
-  const tableContent = listOfComponents.map((item, id) => {
+  let dataToShowInTable = listOfComponents
+  const tableContent = dataToShowInTable.map((item, id) => {
     const isRowEdited = item === editedField
 
     return (

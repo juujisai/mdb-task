@@ -34,3 +34,8 @@ export const ADD_NEW_STAT_TO_SHOW = 'ADD_NEW_STAT_TO_SHOW'
 export const addNewStatToShow = (data) => {
   return { type: ADD_NEW_STAT_TO_SHOW, payload: data }
 }
+
+export const FILTR_BY_CATEGORY = "FILTR_BY_CATEGORY"
+export const filtrByCategory = (data) => {
+  return { type: FILTR_BY_CATEGORY, payload: data }
+}
