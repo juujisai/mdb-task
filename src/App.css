@@ -378,3 +378,13 @@
 #stat-sum {
   margin-right: 10px;
 }
+
+
+/* statistic */
+.statistic-section {
+  margin: 50px 0 150px 0;
+}
+
+.statistic-section .header-secondary {
+  text-align: center;
+}
