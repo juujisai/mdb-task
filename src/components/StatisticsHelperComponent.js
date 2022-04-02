@@ -11,7 +11,7 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
   const [listCompanies, setListCompanies] = React.useState([])
   const [listModels, setListModels] = React.useState([])
   const [listPrices, setListPrices] = React.useState([])
-  const listCategories = pcParts.selectCategories
+  const [listCategories, setListCategories] = React.useState([])
 
   // state for checking what user picked
   const [colPicked, setColPicked] = React.useState('name')
@@ -44,21 +44,22 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
   React.useEffect(() => {
     if (!listNames.length) {
       const list = pcParts.listOfComponents
-      let values = { names: [], companies: [], models: [], prices: [] }
+      let values = { names: [], companies: [], models: [], prices: [], categories: [] }
 
       list.forEach(item => {
         // get names
-        values = { ...values, names: [...values.names, item.name], companies: [...values.companies, item.company], models: [...values.models, item.model], prices: [...values.prices, Number(item.price)] }
+        values = { ...values, names: [...values.names, item.name], companies: [...values.companies, item.company], models: [...values.models, item.model], prices: [...values.prices, Number(item.price)], categories: [...values.categories, item.category] }
 
       })
 
-      values = { names: [...new Set(values.names)], companies: [...new Set(values.companies)], models: [...new Set(values.models)], prices: [...new Set(values.prices)] }
+      values = { names: [...new Set(values.names)], companies: [...new Set(values.companies)], models: [...new Set(values.models)], prices: [...new Set(values.prices)], categories: [...new Set(values.categories)] }
 
 
       setListNames(values.names)
       setListCompanies(values.companies)
       setListModels(values.models)
       setListPrices(values.prices)
+      setListCategories(values.categories)
 
       setValuePicked(values.names[0])
       console.log('got values')
