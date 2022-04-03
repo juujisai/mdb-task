@@ -400,3 +400,14 @@
   justify-content: center;
   flex-direction: row;
 }
+
+.add-new a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.add-new a:hover {
+  color: white
+}

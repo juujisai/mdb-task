@@ -5,6 +5,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { showToolHelper } from '../redux/actions/toolsActions'
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas'
+import { CSVLink, CSVDownload } from "react-csv";
 
 
 const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
@@ -54,24 +55,24 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       let height = pdf.internal.pageSize.getHeight();
 
       height = ratio * width;
-      console.log(height)
+      // console.log(height)
 
       let a4 = 297
       let noPages = 0
 
       noPages = Math.floor(height / a4) + 1
-      console.log(noPages)
+      // console.log(noPages)
 
       for (let i = 0; i < noPages; i++) {
         let x = margins.left;
         let y = -i * 297 + margins.top
         i > 0 && pdf.addPage()
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', x, y, width - margins.left * 2, height - margins.top * 2);
-        console.log('add page')
+        // console.log('add page')
       }
 
 
-      pdf.save('test.pdf');
+      pdf.save('tabela.pdf');
     });
 
 
@@ -85,13 +86,13 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
   }
 
-
   const handleClick = (e) => {
     e.preventDefault()
     console.log(selectedValue)
     if (selectedValue === 'export-pdf') {
       createPDF()
     }
+
 
     setShowAlert(true)
     setAlertData([`Wyeksportowano tabelę do pliku ${selectedValue.split('-')[1]}`, 'success'])
@@ -112,7 +113,9 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
 
 
-        <button className='add-new' onClick={(e) => handleClick(e)}>Dodaj statystykę</button>
+        {selectedValue !== 'export-csv' && <button className='add-new' onClick={(e) => handleClick(e)}>Pobierz plik</button>
+        }
+        {selectedValue === 'export-csv' && <button className='add-new'><CSVLink filename='dane-z-tabeli' data={pcParts.listOfComponents}>Pobierz plik</CSVLink></button>}
 
       </form>
 
