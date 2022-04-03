@@ -223,6 +223,7 @@
 
 .small-statistics {
   margin: 25px auto;
+  width: 250px;
   /* text-align: center; */
 }
 
@@ -387,4 +388,15 @@
 
 .statistic-section .header-secondary {
   text-align: center;
+}
+
+
+.caption-table {
+  margin-bottom: 15px;
+}
+
+#table-to-export-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
