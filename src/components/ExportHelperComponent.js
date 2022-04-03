@@ -5,13 +5,14 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { showToolHelper } from '../redux/actions/toolsActions'
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas'
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
+import exportFromJSON from "export-from-json";
 
 
 const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
   // state for type of statistic
   const [selectedValue, setSelectedValue] = React.useState('export-pdf')
-
+  const [fileName, setFileName] = React.useState('dane')
 
   // state for alert
   const [showAlert, setShowAlert] = React.useState(false)
@@ -72,7 +73,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       }
 
 
-      pdf.save('tabela.pdf');
+      pdf.save(`${fileName}.pdf`);
     });
 
 
@@ -86,11 +87,35 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
   }
 
+  const createXML = () => {
+    // const data = JSON.stringify(pcParts.listOfComponents)
+    const data = pcParts.listOfComponents
+    const fieldsAsObjects = {
+      "id": "Id of the item",
+      "name": "Name of the item",
+      "company": "Company that made the item",
+      "model": "Model that company gave to the item",
+      "category": "Category the item falls in",
+      "price": "Price of the item"
+    };
+
+    const exportType = 'xml';
+    const fields = fieldsAsObjects ? fieldsAsObjects : [];
+    exportFromJSON({ data, fileName, fields, exportType })
+
+
+  }
+
   const handleClick = (e) => {
     e.preventDefault()
     console.log(selectedValue)
     if (selectedValue === 'export-pdf') {
       createPDF()
+    }
+
+    if (selectedValue === 'export-xml') {
+      console.log('x')
+      createXML()
     }
 
 
@@ -111,11 +136,15 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
           <label htmlFor="export-xml"><input type="radio" name="export-xml" id="export-xml" value='export-xml' checked={selectedValue === 'export-xml'} onChange={(e) => setSelectedValue(e.target.value)} /> xml</label>
         </div>
 
+        <div className="helper-stats-form__div">
+          <label htmlFor="choose-name" className='choose-name'>nazwa pliku:</label> <input type="text" value={fileName} onChange={(e) => setFileName(e.target.value)} />.{selectedValue.split('-')[1]}
+
+        </div>
 
 
         {selectedValue !== 'export-csv' && <button className='add-new' onClick={(e) => handleClick(e)}>Pobierz plik</button>
         }
-        {selectedValue === 'export-csv' && <button className='add-new'><CSVLink filename='dane-z-tabeli' data={pcParts.listOfComponents}>Pobierz plik</CSVLink></button>}
+        {selectedValue === 'export-csv' && <button className='add-new'><CSVLink filename={fileName} data={pcParts.listOfComponents}>Pobierz plik</CSVLink></button>}
 
       </form>
 
