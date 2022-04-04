@@ -591,3 +591,8 @@ select {
   caret-color: rgb(255, 86, 113);
   border-color: rgb(255, 86, 113);
 }
+
+.row-id {
+  font-size: 13.3333px;
+  color: rgb(84, 84, 84);
+}

@@ -104,7 +104,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
 
     return (
       <tr className='table-section__tr table-row-draggable' key={id}>
-        <td className="table-section__td">{id + 1}</td>
+        <td className="table-section__td row-id">{id + 1}</td>
         <td className="table-section__td">
           <input className='table-section__input' type="text" value={isRowEdited ? itemName : item.name} disabled={!isRowEdited} onChange={(e) => setItemName(e.target.value)} />
         </td>
