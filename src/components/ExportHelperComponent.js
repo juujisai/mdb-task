@@ -131,13 +131,14 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       <form className="helper-stats-form">
         <div className="helper-stats-form__div">
           <label htmlFor="choose-type" className='choose-type'>Exportuj tabelę do:</label>
-          <label htmlFor="export-pdf"><input type="radio" name="export-pdf" id="export-pdf" value='export-pdf' checked={selectedValue === 'export-pdf'} onChange={(e) => setSelectedValue(e.target.value)} /> pdf</label>
-          <label htmlFor="export-csv"><input type="radio" name="export-csv" id="export-csv" value='export-csv' checked={selectedValue === 'export-csv'} onChange={(e) => setSelectedValue(e.target.value)} /> csv</label>
-          <label htmlFor="export-xml"><input type="radio" name="export-xml" id="export-xml" value='export-xml' checked={selectedValue === 'export-xml'} onChange={(e) => setSelectedValue(e.target.value)} /> xml</label>
+          <label htmlFor="export-pdf" className='export-radio'><input type="radio" name="export-pdf" id="export-pdf" value='export-pdf' checked={selectedValue === 'export-pdf'} onChange={(e) => setSelectedValue(e.target.value)} /> pdf</label>
+          <label htmlFor="export-csv" className='export-radio'><input type="radio" name="export-csv" id="export-csv" value='export-csv' checked={selectedValue === 'export-csv'} onChange={(e) => setSelectedValue(e.target.value)} /> csv</label>
+          <label htmlFor="export-xml" className='export-radio'><input type="radio" name="export-xml" id="export-xml" value='export-xml' checked={selectedValue === 'export-xml'} onChange={(e) => setSelectedValue(e.target.value)} /> xml</label>
         </div>
 
         <div className="helper-stats-form__div">
-          <label htmlFor="choose-name" className='choose-name'>nazwa pliku:</label> <input type="text" value={fileName} onChange={(e) => setFileName(e.target.value)} />.{selectedValue.split('-')[1]}
+          <label htmlFor="choose-type" className='choose-type'>nazwa pliku:</label>
+          <input className='name-of-file-input' type="text" value={fileName} onChange={(e) => setFileName(e.target.value)} />.{selectedValue.split('-')[1]}
 
         </div>
 

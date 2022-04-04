@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
-import { BsSave } from 'react-icons/bs'
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
+import { BsSaveFill } from 'react-icons/bs'
 import { setSumOfComponents, updateList, updateListWithoutPost } from '../redux/actions/pcPartsAction'
-import { FcCancel } from 'react-icons/fc'
+import { TiCancel } from 'react-icons/ti'
 import { FaSortAmountDown } from 'react-icons/fa'
 import EditMoveHandle from '../components/EditMoveHandle';
 
@@ -122,10 +122,10 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
         </td>
         {
           isEditActive && <td className="table-section__td table-section__td--edit">
-            {!isRowEdited ? <span className='edit-btn' onClick={() => handleEdit(item, isRowEdited)}><AiOutlineEdit /></span>
-              : <span className='edit-btn' onClick={() => handleSave(item)}><BsSave /></span>}
-            {isRowEdited && <span className="edit-btn" onClick={() => cancelEdition()}><FcCancel /></span>}
-            <span className='edit-btn delete-tbl-btn' onClick={() => handleDelete(item)}><AiOutlineDelete /></span>
+            {!isRowEdited ? <span className='edit-btn' onClick={() => handleEdit(item, isRowEdited)}><AiFillEdit /></span>
+              : <span className='edit-btn' onClick={() => handleSave(item)}><BsSaveFill /></span>}
+            {isRowEdited && <span className="edit-btn" onClick={() => cancelEdition()}><TiCancel /></span>}
+            <span className='edit-btn delete-tbl-btn' onClick={() => handleDelete(item)}><AiFillDelete /></span>
           </td>
         }
         {isEditActive && <td className='move-handle'><EditMoveHandle data={item} /></td>}
