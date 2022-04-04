@@ -108,6 +108,11 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
   const handleClick = (e) => {
     e.preventDefault()
+    console.log(pcParts.listOfComponents)
+    if (pcParts.listOfComponents.length === 0) {
+      return alert('brak danych do wyeksportowania')
+    }
+
     console.log(selectedValue)
     if (selectedValue === 'export-pdf') {
       createPDF()
@@ -145,7 +150,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
         {selectedValue !== 'export-csv' && <button className='add-new' onClick={(e) => handleClick(e)}>Pobierz plik</button>
         }
-        {selectedValue === 'export-csv' && <button className='add-new'><CSVLink filename={fileName} data={pcParts.listOfComponents}>Pobierz plik</CSVLink></button>}
+        {selectedValue === 'export-csv' && <button className='add-new' onClick={(e) => { e.preventDefault(); pcParts.listOfComponents.length === 0 && alert('brak danych do wyeksportowania') }}>{pcParts.listOfComponents.length > 0 ? <CSVLink filename={fileName} data={pcParts.listOfComponents}>Pobierz plik</CSVLink> : 'Pobierz plik'}</button>}
 
       </form>
 

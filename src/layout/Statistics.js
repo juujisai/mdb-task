@@ -36,7 +36,7 @@ const Statistics = ({ pcParts }) => {
 
 
   return (
-    <div className='statistic-section'>
+    <div className='statistic-section' style={stats.length !== 0 ? { display: 'block' } : { display: 'none' }}>
       {stats.length !== 0 &&
         <>
           <h1 className="header-secondary">Statystyka</h1>

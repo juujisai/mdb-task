@@ -559,7 +559,7 @@ select {
 }
 
 .add-new a {
-  color: black;
+  color: white;
   text-decoration: none;
   cursor: pointer;
   transition: .3s;
