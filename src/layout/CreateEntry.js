@@ -134,43 +134,56 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
       <h2 className="header-secondary">Dodaj przedmiot do tabeli</h2>
       <form className="new-entry-form">
         <div className="new-entry-form__div">
-          <label htmlFor="name-of-item">Nazwa przedmiotu</label><input type="text" id='name-of-item' value={itemName} onChange={(e) => setItemName(e.target.value)} /> {validation.name && <span className="validation-failed">pozycja wymagana</span>}
+          <label htmlFor="name-of-item">Nazwa przedmiotu</label><input placeholder='podaj nazwę' type="text" id='name-of-item' value={itemName} onChange={(e) => setItemName(e.target.value)} /> {validation.name && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
-          <label htmlFor="company-of-item">Firma</label><input type="text" id='company-of-item' value={itemCompany} onChange={(e) => setItemCompany(e.target.value)} /> {validation.company && <span className="validation-failed">pozycja wymagana</span>}
+          <label htmlFor="company-of-item">Firma</label><input placeholder='podaj firmę' type="text" id='company-of-item' value={itemCompany} onChange={(e) => setItemCompany(e.target.value)} /> {validation.company && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
-          <label htmlFor="model-of-item">Model</label><input type="text" id='model-of-item' value={itemModel} onChange={(e) => setItemModel(e.target.value)} /> {validation.model && <span className="validation-failed">pozycja wymagana</span>}
+          <label htmlFor="model-of-item">Model</label><input placeholder='podaj model' type="text" id='model-of-item' value={itemModel} onChange={(e) => setItemModel(e.target.value)} /> {validation.model && <span className="validation-failed">pozycja wymagana</span>}
         </div>
         <div className="new-entry-form__div">
-          <label htmlFor="model-of-item">Cena</label><input type="number" id='model-of-item' min='0' value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} /> zł {validation.price && <span className="validation-failed">pozycja wymagana</span>}
+          <label htmlFor="model-of-item">Cena</label><input type="number" id='model-of-item' min='0' value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} /> <span className="currency">zł</span> {validation.price && <span className="validation-failed">pozycja wymagana</span>}
         </div>
-        <div className="new-entry-form__div">
-          <label htmlFor="category-of-item">Kategoria</label>
-          <select id='category-of-item' value={itemCategory} onChange={(e) => {
-            setItemCategory(e.target.value)
+        {!showNewOptionBox &&
+          <div className="new-entry-form__div">
+            <label htmlFor="category-of-item">Kategoria</label>
+            <select id='category-of-item' value={itemCategory} onChange={(e) => {
+              setItemCategory(e.target.value)
 
-            // add new category 
-            if (e.target.value !== newOptionTxt) {
-              return setShowNewOptionBox(false)
-            }
-            setShowNewOptionBox(true)
-          }}>
-            {options}
-            <option className='category-of-item--new' value={newOptionTxt} >... {newOptionTxt}</option>
-          </select>
+              // add new category 
+              if (e.target.value === newOptionTxt) {
+                //   return setShowNewOptionBox(false)
+                setShowNewOptionBox(true)
+              } else {
+                setShowNewOptionBox(false)
 
-          {
-            showNewOptionBox && <div className="new-option-popup">
+              }
+            }}>
+              {options}
+              {<option className='category-of-item--new' value={newOptionTxt} >... {newOptionTxt}</option>}
+            </select>
+          </div>
+        }
+        {
+
+          showNewOptionBox &&
+          <div className="new-entry-form__div">
+
+            <div className="new-option-popup">
               <label htmlFor="new-category">Dodaj nową kategorię</label><input type="text" id='new-category' value={newOptionValue} onChange={(e) => setNewOptionValue(e.target.value)} />
-              {newOptionValue.length > 0 && <button className='add-new' onClick={() => handleNewCategory()}>dodaj</button>}
-              <button className='add-new add-new--close' onClick={() => {
-                setShowNewOptionBox(false); setItemCategory(selectCategories[0]); setNewOptionValue('')
-              }}>x</button>
-            </div>
-          }
+              <div className="btns-new-entry">
 
-        </div>
+                {newOptionValue.length > 0 && <button className='add-new' onClick={() => handleNewCategory()}>dodaj</button>}
+                <button className='add-new add-new--close' onClick={() => {
+                  setShowNewOptionBox(false); setItemCategory(selectCategories[0]); setNewOptionValue('')
+                }}>x</button>
+              </div>
+            </div>
+          </div>
+
+        }
+
         <div className="btn-cont">
           <button className='submit-form-item' onClick={(event) => { handleSubmit(event) }}>Dodaj przedmiot</button>
         </div>
