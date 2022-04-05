@@ -421,7 +421,6 @@ body {
   left: 0%;
   top: -20%;
   font-size: 0.7em;
-  width: 300px;
   opacity: 0;
 }
 
@@ -634,9 +633,6 @@ a.add-new {
   }
 
 
-  .drag-icon::after {
-    display: none;
-  }
 }
 
 
