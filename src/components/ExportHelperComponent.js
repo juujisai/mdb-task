@@ -39,6 +39,13 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
     tableWrap.style.overflowX = 'visible'
 
 
+    // remove edit buttons from view so it wont be on the pdf
+    const editBtns = [...document.querySelectorAll('.table-section__th--edit'), ...document.querySelectorAll('.table-section__td--edit')]
+    editBtns.forEach(item => item.style.display = 'none')
+    const dragBtns = [...document.querySelectorAll('.move-handle')]
+    dragBtns.forEach(item => item.style.display = 'none')
+
+
     let margins = {
       top: 10,
       left: 10
@@ -106,6 +113,11 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
     // add overflow scroll back to wrapper so the table wont look bad on website. 
     tableWrap.style.overflowX = 'scroll'
+
+    // add display back to the edit buttons before ending the function
+    editBtns.forEach(item => item.style.display = 'flex')
+    dragBtns.forEach(item => item.style.display = 'table-cell')
+
   }
 
   const createXML = () => {
