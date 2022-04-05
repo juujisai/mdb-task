@@ -106,6 +106,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
         i > 0 && pdf.addImage(pdfMargin.source, 'PNG', 0, 0, pdfMargin.width, margins.top)
 
       }
+
       pdf.save(`${fileName}.pdf`);
 
 
@@ -141,17 +142,16 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
   const handleClick = (e) => {
     e.preventDefault()
+
     if (pcParts.listOfComponents.length === 0) {
       return alert('brak danych do wyeksportowania')
     }
 
-    console.log(selectedValue)
     if (selectedValue === 'export-pdf') {
       createPDF()
     }
 
     if (selectedValue === 'export-xml') {
-      console.log('x')
       createXML()
     }
 
@@ -159,7 +159,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
     setShowAlert(true)
     setAlertData([`Wyeksportowano tabelę do pliku ${selectedValue.split('-')[1]}`, 'success'])
   }
-
+  console.log(selectedValue)
 
   return (
     <div className='helper-component helper-export'>
@@ -179,10 +179,10 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
         </div>
 
+        {/* switch to button depending if its csv or not - check if data is not empty */}
+        {selectedValue !== 'export-csv' ? <button className='add-new' onClick={(e) => handleClick(e)}>Pobierz {selectedValue.split('-')[1]}</button> : pcParts.listOfComponents.length === 0 ? <button className='add-new' onClick={(e) => handleClick(e)}>Pobierz {selectedValue.split('-')[1]}</button> : <CSVLink className='add-new' filename={`${fileName}.csv`} data={pcParts.listOfComponents}>Pobierz csv</CSVLink>}
 
-        {selectedValue !== 'export-csv' && <button className='add-new' onClick={(e) => handleClick(e)}>Pobierz plik</button>
-        }
-        {selectedValue === 'export-csv' && <button className='add-new' onClick={(e) => { e.preventDefault(); pcParts.listOfComponents.length === 0 && alert('brak danych do wyeksportowania') }}>{pcParts.listOfComponents.length > 0 ? <CSVLink filename={fileName} data={pcParts.listOfComponents}>Pobierz plik</CSVLink> : 'Pobierz plik'}</button>}
+
 
       </form>
 

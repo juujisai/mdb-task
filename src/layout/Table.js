@@ -89,8 +89,6 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
     copy = copy.filter(item2 => item2 !== item)
     update(copy)
 
-    console.log(item)
-    console.log('delete')
   }
 
   let dataToShowInTable = listOfComponents

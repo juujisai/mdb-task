@@ -86,7 +86,6 @@ const CreateEntry = ({ pcParts: { selectCategories, listOfComponents }, addCateg
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    console.log('click')
     const validationResult = validate()
 
     if (validationResult) {

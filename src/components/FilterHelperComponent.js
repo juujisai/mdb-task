@@ -47,7 +47,6 @@ const FilterHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       setListCategories(values.categories)
 
       setValuePicked('all')
-      console.log('got values')
     }
 
   }, [listCategories, pcParts])

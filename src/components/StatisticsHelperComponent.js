@@ -62,7 +62,7 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
       setListCategories(values.categories)
 
       setValuePicked(values.names[0])
-      console.log('got values')
+
     }
 
   }, [listNames, pcParts])
@@ -83,9 +83,7 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
   const optionsModels = listModels.map((item, id) =>
     (<option value={item} key={id}>{item}</option>)
   )
-  // const optionsPrices = listPrices.map((item, id) =>
-  //   (<option value={item} key={id}>{item}</option>)
-  // )
+
   const optionsCategories = listCategories.map((item, id) =>
     (<option value={item} key={id}>{item}</option>)
   )
@@ -131,7 +129,6 @@ const ToolsHelperComponent = ({ tools, pcParts, showHelper, newStat }) => {
         {colPicked === 'category' && <select name="select-category" id="select-category" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsCategories}</select>}
         {colPicked === 'price' && <>
           <input type="range" min={listPrices.sort()[0]} max={listPrices.sort()[listPrices.length - 1]} value={valuePicked} onChange={(e) => setValuePicked(e.target.value)} /> <span className="price-show">{valuePicked}</span></>
-          // <select name="select-price" id="select-price" value={valuePicked} onChange={(e) => setValuePicked(e.target.value)}>{optionsPrices}</select>
         }
 
 
