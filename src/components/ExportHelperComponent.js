@@ -7,7 +7,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas'
 import { CSVLink } from "react-csv";
 import exportFromJSON from "export-from-json";
-
+import topdf from '../topdf.png'
 
 const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
   // state for type of statistic
@@ -34,7 +34,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
   const createPDF = () => {
     let margins = {
-      top: 20,
+      top: 10,
       left: 10
     }
     let source = document.getElementById('table-to-export-wrap')
@@ -43,6 +43,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
     const contentHeight = source.clientHeight;
 
     let ratio = contentHeight / contentWidth;
+
 
     html2canvas(source,
       {
@@ -55,21 +56,38 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       let width = pdf.internal.pageSize.getWidth();
       let height = pdf.internal.pageSize.getHeight();
 
+      // add empty png to pdf so it looks like a margin
+      const pdfMargin = { source: topdf, width: 210, heigth: margins.top }
+
+
       height = ratio * width;
-      // console.log(height)
+      // height = pcParts.listOfComponents.length * 7
 
       let a4 = 297
       let noPages = 0
 
       noPages = Math.floor(height / a4) + 1
-      // console.log(noPages)
 
       for (let i = 0; i < noPages; i++) {
         let x = margins.left;
-        let y = -i * 297 + margins.top
+        let y = 0
+        // version without margins
+        // y = -i * 297 + margins.top
+
+        // version with margins 
+        i > 0 ? y = -i * 297 + 3 * margins.top : y = -i * 297 + margins.top
+
         i > 0 && pdf.addPage()
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', x, y, width - margins.left * 2, height - margins.top * 2);
-        // console.log('add page')
+
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', x, y, width - margins.left * 2, height - margins.top * 1);
+
+
+        // version with margins
+        // bottom
+        noPages > 1 && pdf.addImage(pdfMargin.source, 'PNG', 0, 297 - pdfMargin.heigth, pdfMargin.width, margins.top)
+        // top
+        i > 0 && pdf.addImage(pdfMargin.source, 'PNG', 0, 0, pdfMargin.width, margins.top)
+
       }
 
 
@@ -108,7 +126,6 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    console.log(pcParts.listOfComponents)
     if (pcParts.listOfComponents.length === 0) {
       return alert('brak danych do wyeksportowania')
     }
@@ -155,7 +172,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       </form>
 
       {showAlert && <Alert txt={alertData[0]} type={alertData[1]} />}
-
+      <div className="to-export"></div>
     </div>
   );
 }
