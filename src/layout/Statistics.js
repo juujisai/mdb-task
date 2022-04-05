@@ -40,19 +40,20 @@ const Statistics = ({ pcParts }) => {
       {stats.length !== 0 &&
         <>
           <h1 className="header-secondary">Statystyka</h1>
-          <table className="table-section__table">
-            <tbody>
-              <tr className='table-section__tr' >
-                <th className='table-section__th'>lp</th>
-                <th className='table-section__th'>rodzaj</th>
-                <th className='table-section__th'>kolumna</th>
-                <th className='table-section__th'>komórka</th>
-                <th className='table-section__th'>policzona wartość</th>
-              </tr>
-              {statsToShow}
-            </tbody>
-          </table>
-
+          <div className="wrap-table">
+            <table className="table-section__table">
+              <tbody>
+                <tr className='table-section__tr' >
+                  <th className='table-section__th'>lp</th>
+                  <th className='table-section__th'>rodzaj</th>
+                  <th className='table-section__th'>kolumna</th>
+                  <th className='table-section__th'>komórka</th>
+                  <th className='table-section__th'>policzona wartość</th>
+                </tr>
+                {statsToShow}
+              </tbody>
+            </table>
+          </div>
         </>
       }
 

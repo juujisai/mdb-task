@@ -229,24 +229,26 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
   return (
     <div className='table-section' id='table-to-export-section'>
       <div className='wrap-table' id='table-to-export-wrap'>
-        <table className="table-section__table " id='table-to-export'>
-          <caption className='caption-table'>Tabela kosztów nowego stanowiska</caption>
+        <div className="table-table-wrap">
+          <table className="table-section__table " id='table-to-export'>
+            <caption className='caption-table'>Tabela kosztów nowego stanowiska</caption>
 
-          <tbody>
-            <tr className='table-section__tr' >
-              <th className='table-section__th'>lp</th>
-              <th className='table-section__th'>nazwa <span className="sort-table-btn btn-name" onClick={() => handleSortBtn('name')}><FaSortAmountDown /></span></th>
-              <th className='table-section__th'>firma <span className="sort-table-btn btn-company" onClick={() => handleSortBtn('company')}><FaSortAmountDown /></span></th>
-              <th className='table-section__th'>model <span className="sort-table-btn btn-model" onClick={() => handleSortBtn('model')}><FaSortAmountDown /></span></th>
-              <th className='table-section__th'>kategoria <span className="sort-table-btn btn-category" onClick={() => handleSortBtn('category')}><FaSortAmountDown /></span></th>
-              <th className='table-section__th'>cena <span className="sort-table-btn btn-price" onClick={() => handleSortBtn('price')}><FaSortAmountDown /></span></th>
-              {
-                isEditActive && <th className='table-section__th table-section__th--edit'>edit</th>
-              }
-            </tr>
-            {tableContent}
-          </tbody>
-        </table>
+            <tbody>
+              <tr className='table-section__tr' >
+                <th className='table-section__th'>lp</th>
+                <th className='table-section__th'>nazwa <span className="sort-table-btn btn-name" onClick={() => handleSortBtn('name')}><FaSortAmountDown /></span></th>
+                <th className='table-section__th'>firma <span className="sort-table-btn btn-company" onClick={() => handleSortBtn('company')}><FaSortAmountDown /></span></th>
+                <th className='table-section__th'>model <span className="sort-table-btn btn-model" onClick={() => handleSortBtn('model')}><FaSortAmountDown /></span></th>
+                <th className='table-section__th'>kategoria <span className="sort-table-btn btn-category" onClick={() => handleSortBtn('category')}><FaSortAmountDown /></span></th>
+                <th className='table-section__th'>cena <span className="sort-table-btn btn-price" onClick={() => handleSortBtn('price')}><FaSortAmountDown /></span></th>
+                {
+                  isEditActive && <th className='table-section__th table-section__th--edit'>edit</th>
+                }
+              </tr>
+              {tableContent}
+            </tbody>
+          </table>
+        </div>
         <div className="small-statistics">
           <div className="small-statistics__div">
             <span className="small-statistics__span">łączny koszt stanowiska:</span> <span className="small-statistics__span">{sum} zł</span>

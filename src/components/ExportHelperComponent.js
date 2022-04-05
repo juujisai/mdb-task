@@ -7,7 +7,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas'
 import { CSVLink } from "react-csv";
 import exportFromJSON from "export-from-json";
-import topdf from '../topdf.png'
+import topdf from '../media/topdf.png'
 
 const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
   // state for type of statistic
@@ -33,16 +33,23 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
   }, [showAlert])
 
   const createPDF = () => {
+    const tableWrap = document.querySelector('.wrap-table')
+
+    // delete overflow from wrapper so the table wont look bad on pdf. Do it now so it wont change the look of table but still the pdf will look like it should have
+    tableWrap.style.overflowX = 'visible'
+
+
     let margins = {
       top: 10,
       left: 10
     }
     let source = document.getElementById('table-to-export-wrap')
-    // let source = document.getElementById('table-to-export')
+
     const contentWidth = source.clientWidth;
     const contentHeight = source.clientHeight;
 
     let ratio = contentHeight / contentWidth;
+
 
 
     html2canvas(source,
@@ -66,7 +73,10 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
       let a4 = 297
       let noPages = 0
 
+      // check how many pages the image would take
       noPages = Math.floor(height / a4) + 1
+
+
 
       for (let i = 0; i < noPages; i++) {
         let x = margins.left;
@@ -89,20 +99,13 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
         i > 0 && pdf.addImage(pdfMargin.source, 'PNG', 0, 0, pdfMargin.width, margins.top)
 
       }
-
-
       pdf.save(`${fileName}.pdf`);
+
+
     });
 
-
-
-
-
-
-
-
-
-
+    // add overflow scroll back to wrapper so the table wont look bad on website. 
+    tableWrap.style.overflowX = 'scroll'
   }
 
   const createXML = () => {
