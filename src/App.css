@@ -769,6 +769,8 @@ a.add-new {
 
   .tools__span {
     margin-right: 10px;
+    font-size: 1em;
+
   }
 
 }
@@ -784,8 +786,13 @@ a.add-new {
     padding: 30px;
   }
 
+  .tools {
+    justify-content: center;
+    padding-left: 0;
+  }
+
   .tools__span {
-    font-size: 1em;
+    margin-right: 5px;
   }
 
 
