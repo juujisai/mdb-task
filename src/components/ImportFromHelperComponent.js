@@ -78,7 +78,6 @@ const ImportFromHelperComponent = ({ tools, pcParts, showHelper, updateWithoutPo
     e.preventDefault()
 
     let data = []
-    console.log(dataFromFile)
     dataFromFile.forEach(item => data = [...data, { id: item[mainHeadersFromWebsite.id], name: item[mainHeadersFromWebsite.name], company: item[mainHeadersFromWebsite.company], model: item[mainHeadersFromWebsite.model], price: Number(item[mainHeadersFromWebsite.price]), category: item[mainHeadersFromWebsite.category] }])
 
 

@@ -64,7 +64,7 @@ export const importFromNodeFailure = (error) => {
 export const handleImportFromNode = (addToLocalStorage) => {
   return (dispatch) => {
     dispatch(importFromNodeRequest())
-
+    console.log(URL)
     axios.get(URL)
       .then(response => {
         console.log('api import');
