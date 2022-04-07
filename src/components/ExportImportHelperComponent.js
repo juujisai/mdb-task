@@ -87,7 +87,7 @@ const mapStateToProps = ({ tools, pcParts }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     showHelper: (name) => dispatch(showToolHelper(name)),
-    handleImport: () => dispatch(handleImportFromNode()),
+    handleImport: (data) => dispatch(handleImportFromNode(data)),
     handlePost: (data) => dispatch(handlePostToNode(data)),
     handlePut: (data) => dispatch(handlePutToNode(data)),
 

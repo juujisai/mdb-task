@@ -159,7 +159,7 @@ const ExportHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
     setShowAlert(true)
     setAlertData([`Wyeksportowano tabelę do pliku ${selectedValue.split('-')[1]}`, 'success'])
   }
-  console.log(selectedValue)
+  // console.log(selectedValue)
 
   return (
     <div className='helper-component helper-export'>

@@ -5,7 +5,8 @@ const initialState = {
   showExport: false,
   showStats: false,
   showSelection: false,
-  showExportApi: false
+  showExportApi: false,
+  showImportFrom: false
 }
 
 export const toolsReducer = (state = initialState, action) => {
@@ -17,6 +18,7 @@ export const toolsReducer = (state = initialState, action) => {
     if (action.payload === 'stats') { return { ...state, showStats: !state.showStats } }
     if (action.payload === 'selection') { return { ...state, showSelection: !state.showSelection } }
     if (action.payload === 'exp-imp') { return { ...state, showExportApi: !state.showExportApi } }
+    if (action.payload === 'import') { return { ...state, showImportFrom: !state.showImportFrom } }
   }
 
   return state
