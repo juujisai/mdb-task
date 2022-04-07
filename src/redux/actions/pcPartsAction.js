@@ -61,7 +61,7 @@ export const importFromNodeFailure = (error) => {
   return { type: IMPORT_FROM_NODE_FAILURE, payload: error }
 }
 
-export const handleImportFromNode = () => {
+export const handleImportFromNode = (addToLocalStorage) => {
   return (dispatch) => {
     dispatch(importFromNodeRequest())
 
@@ -69,6 +69,12 @@ export const handleImportFromNode = () => {
       .then(response => {
         console.log('api import');
         let data = response.data
+
+        if (addToLocalStorage) {
+          console.log('dodano do localStorage')
+          window.localStorage.setItem('listOfItems', JSON.stringify(data))
+        };
+
         dispatch(importFromNodeSuccess(data))
       })
       .catch(error => {

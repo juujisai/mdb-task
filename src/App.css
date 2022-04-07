@@ -665,11 +665,17 @@ a.add-new {
   text-decoration: none;
 }
 
-.info-exp-imp {
-  text-align: center;
-  color: var(--darkBlue);
-  font-size: 0.7em;
+.overflow-hidden {
+
+  overflow: hidden;
 }
+
+.helper-div-that-shows-after-selection {
+  transform: translateY(0);
+  transition: .3s;
+}
+
+
 
 @media (max-width: 1100px) {
   body {

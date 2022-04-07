@@ -10,6 +10,8 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, handleImport
   // state for type of statistic
   const [selectedValue, setSelectedValue] = React.useState('import-api')
 
+  // state for deciding if app should add data to localstorage
+  const [addToLocalStorage, setAddToLocalStorage] = React.useState(false)
 
 
   // state for alert
@@ -36,7 +38,7 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, handleImport
     e.preventDefault()
 
     if (selectedValue === 'import-api') {
-      handleImport()
+      handleImport(addToLocalStorage)
     }
     if (selectedValue === 'export-post-api') {
       handlePost(pcParts.listOfComponents[pcParts.listOfComponents.length - 1])
@@ -51,6 +53,7 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, handleImport
 
   }
 
+
   return (
     <div className='helper-component helper-stats'>
       <span className="close-btn" onClick={() => showHelper('exp-imp')}><AiOutlineClose /></span>
@@ -62,8 +65,12 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, handleImport
           <label htmlFor="export-post-api" className='export-radio'><input type="radio" name="export-post-api" id="export-post-api" value='export-post-api' checked={selectedValue === 'export-post-api'} onChange={(e) => setSelectedValue(e.target.value)} /> export POST do node api (ostatni rekord)</label>
           <label htmlFor="export-put-api" className='export-radio'><input type="radio" name="export-put-api" id="export-put-api" value='export-put-api' checked={selectedValue === 'export-put-api'} onChange={(e) => setSelectedValue(e.target.value)} /> export PUT do node api</label>
         </div>
-        <p className='info-exp-imp'>Dane nie zapisywane do localStorage</p>
-
+        <div className='overflow-hidden'>
+          <div className="helper-stats-form__div helper-div-that-shows-after-selection" style={selectedValue === 'import-api' ? { transform: `translateY(-0%)` } : { transform: `translateY(-200%)` }}>
+            <label htmlFor="choose-type" className='choose-type'>Dodaj dane do localStorage</label>
+            <label htmlFor="check-local-storage" className='check-local-storage'><input type="checkbox" name="check-local-storage" id="check-local-storage" value='check-local-storage' checked={addToLocalStorage} onChange={(e) => setAddToLocalStorage(e.target.checked)} /> dodaj</label>
+          </div>
+        </div>
 
         <button className='add-new' onClick={(e) => handleClick(e)}>{selectedValue.split('-').join(' ')}</button>
       </form>
