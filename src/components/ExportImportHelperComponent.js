@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai'
 import { showToolHelper } from '../redux/actions/toolsActions'
 import Alert from './Alert';
-import { filtrByCategory } from '../redux/actions/pcPartsAction'
+import { handleImportFromNode, handlePostToNode, handlePutToNode } from '../redux/actions/pcPartsAction'
 
 
-const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, setFilter }) => {
+const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, handleImport, handlePost, handlePut }) => {
   // state for type of statistic
   const [selectedValue, setSelectedValue] = React.useState('import-api')
-  const [fileName, setFileName] = React.useState('dane')
+
 
 
   // state for alert
@@ -32,18 +32,22 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, setFilter })
 
 
 
-  // get list values when component is loaded
-  React.useEffect(() => {
-
-  }
-
-    , [])
-
-
   const handleClick = (e) => {
     e.preventDefault()
-    // setShowAlert(true)
-    // setAlertData([`Filtruję dane po kategorii ${valuePicked}`, 'success'])
+
+    if (selectedValue === 'import-api') {
+      handleImport()
+    }
+    if (selectedValue === 'export-post-api') {
+      handlePost(pcParts.listOfComponents[pcParts.listOfComponents.length - 1])
+    }
+    if (selectedValue === 'export-put-api') {
+      handlePost(pcParts.listOfComponents)
+    }
+
+
+    setShowAlert(true)
+    setAlertData([`Wykonano ${selectedValue.split('-').join(' ')}`, 'success'])
 
   }
 
@@ -58,7 +62,7 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, setFilter })
           <label htmlFor="export-post-api" className='export-radio'><input type="radio" name="export-post-api" id="export-post-api" value='export-post-api' checked={selectedValue === 'export-post-api'} onChange={(e) => setSelectedValue(e.target.value)} /> export POST do node api (ostatni rekord)</label>
           <label htmlFor="export-put-api" className='export-radio'><input type="radio" name="export-put-api" id="export-put-api" value='export-put-api' checked={selectedValue === 'export-put-api'} onChange={(e) => setSelectedValue(e.target.value)} /> export PUT do node api</label>
         </div>
-
+        <p className='info-exp-imp'>Dane nie zapisywane do localStorage</p>
 
 
         <button className='add-new' onClick={(e) => handleClick(e)}>{selectedValue.split('-').join(' ')}</button>
@@ -76,7 +80,9 @@ const mapStateToProps = ({ tools, pcParts }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     showHelper: (name) => dispatch(showToolHelper(name)),
-
+    handleImport: () => dispatch(handleImportFromNode()),
+    handlePost: (data) => dispatch(handlePostToNode(data)),
+    handlePutt: (data) => dispatch(handlePutToNode(data)),
 
   }
 }

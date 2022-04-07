@@ -1,3 +1,6 @@
+import axios from 'axios'
+const URL = process.env.REACT_APP_API_PCPARTS;
+
 export const ADD_NEW_CATEGORY = 'ADD_NEW_CATEGORY'
 export const addNewCategory = (item) => {
   return { type: ADD_NEW_CATEGORY, payload: item }
@@ -38,4 +41,91 @@ export const addNewStatToShow = (data) => {
 export const FILTR_BY_CATEGORY = "FILTR_BY_CATEGORY"
 export const filtrByCategory = (data) => {
   return { type: FILTR_BY_CATEGORY, payload: data }
+}
+
+// handle import actions
+export const IMPORT_FROM_NODE_REQUEST = 'IMPORT_FROM_NODE_REQUEST'
+export const IMPORT_FROM_NODE_SUCCESS = 'IMPORT_FROM_NODE_SUCCESS'
+export const IMPORT_FROM_NODE_FAILURE = 'IMPORT_FROM_NODE_FAILURE'
+
+
+export const importFromNodeRequest = () => {
+  return { type: IMPORT_FROM_NODE_REQUEST }
+}
+
+export const importFromNodeSuccess = (data) => {
+  return { type: IMPORT_FROM_NODE_SUCCESS, payload: data }
+}
+
+export const importFromNodeFailure = (error) => {
+  return { type: IMPORT_FROM_NODE_FAILURE, payload: error }
+}
+
+export const handleImportFromNode = () => {
+  return (dispatch) => {
+    dispatch(importFromNodeRequest())
+
+    axios.get(URL)
+      .then(response => {
+        console.log('api import');
+        let data = response.data
+        dispatch(importFromNodeSuccess(data))
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(importFromNodeFailure(error))
+      })
+
+
+  }
+}
+
+
+// handle export post action
+export const POST_TO_NODE_REQUEST = 'POST_TO_NODE_REQUESTT'
+export const POST_TO_NODE_SUCCESS = 'POST_TO_NODE_SUCCESS'
+export const POST_TO_NODE_FAILURE = 'POST_TO_NODE_FAILURE'
+
+
+export const postToNodeRequest = () => {
+  return { type: POST_TO_NODE_REQUEST }
+}
+
+export const postToNodeSuccess = (data) => {
+  return { type: POST_TO_NODE_SUCCESS, payload: data }
+}
+
+export const postToNodeFailure = (error) => {
+  return { type: POST_TO_NODE_FAILURE, payload: error }
+}
+
+export const handlePostToNode = (data) => {
+  return (dispatch) => {
+    console.log('handle post', data)
+  }
+}
+
+
+// handle export put action
+export const PUT_TO_NODE_REQUEST = 'PUT_TO_NODE_REQUESTT'
+export const PUT_TO_NODE_SUCCESS = 'PUT_TO_NODE_SUCCESS'
+export const PUT_TO_NODE_FAILURE = 'PUT_TO_NODE_FAILURE'
+
+
+export const putToNodeRequest = () => {
+  return { type: PUT_TO_NODE_REQUEST }
+}
+
+export const putToNodeSuccess = (data) => {
+  return { type: PUT_TO_NODE_SUCCESS, payload: data }
+}
+
+export const putToNodeFailure = (error) => {
+  return { type: PUT_TO_NODE_FAILURE, payload: error }
+}
+
+export const handlePutToNode = (data) => {
+  return (dispatch) => {
+    console.log('handle put', data)
+  }
 }

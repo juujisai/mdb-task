@@ -1,4 +1,4 @@
-import { ADD_NEW_CATEGORY, ADD_ITEM_TO_LIST, UPDATE_LIST, SET_SUM_OF_COMPONENTS, UPDATE_LIST_WITHOUT_POST, COPY_MOVED_DATA, ADD_NEW_STAT_TO_SHOW, FILTR_BY_CATEGORY } from '../actions/pcPartsAction'
+import { ADD_NEW_CATEGORY, ADD_ITEM_TO_LIST, UPDATE_LIST, SET_SUM_OF_COMPONENTS, UPDATE_LIST_WITHOUT_POST, COPY_MOVED_DATA, ADD_NEW_STAT_TO_SHOW, FILTR_BY_CATEGORY, IMPORT_FROM_NODE_REQUEST, IMPORT_FROM_NODE_SUCCESS, IMPORT_FROM_NODE_FAILURE, PUT_TO_NODE_SUCCESS, PUT_TO_NODE_REQUEST, PUT_TO_NODE_FAILURE, POST_TO_NODE_FAILURE, POST_TO_NODE_SUCCESS, POST_TO_NODE_REQUEST } from '../actions/pcPartsAction'
 
 let s = JSON.parse(window.localStorage.getItem('cat'))
 let x = JSON.parse(window.localStorage.getItem('listOfItems'));
@@ -14,11 +14,14 @@ if (x === null) {
 const initialStore = {
   selectCategories: s,
   listOfComponents: x,
-
+  copyOfListOfComponents: [],
   sumPriceOfComponents: 0,
   dataMoved: {},
   partialStat: [],
-  filterByCategory: 'all'
+  filterByCategory: 'all',
+
+  apiLoading: false,
+  apiError: ''
 }
 
 
@@ -59,6 +62,24 @@ export const pcPartsReducer = (state = initialStore, action) => {
   if (action.type === FILTR_BY_CATEGORY) {
     return { ...state, filterByCategory: action.payload }
   }
+
+  // node actions
+  if (action.type === IMPORT_FROM_NODE_REQUEST || action.type === POST_TO_NODE_REQUEST || action.type === PUT_TO_NODE_REQUEST) {
+    return { ...state, apiLoading: true }
+  }
+  if (action.type === IMPORT_FROM_NODE_FAILURE || action.type === POST_TO_NODE_FAILURE || action.type === PUT_TO_NODE_REQUEST) {
+    return { ...state, apiError: action.payload, apiLoading: false }
+  }
+  if (action.type === POST_TO_NODE_SUCCESS || action.type === PUT_TO_NODE_SUCCESS) {
+    return { ...state, apiLoading: false }
+  }
+  if (action.type === IMPORT_FROM_NODE_SUCCESS) {
+    let copyOfListOfComponents = [...state.listOfComponents]
+    return { ...state, listOfComponents: action.payload, copyOfListOfComponents, apiLoading: false }
+  }
+
+
+
 
   return state
 }

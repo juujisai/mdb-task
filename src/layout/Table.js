@@ -6,8 +6,9 @@ import { setSumOfComponents, updateList, updateListWithoutPost } from '../redux/
 import { TiCancel } from 'react-icons/ti'
 import { FaSortAmountDown } from 'react-icons/fa'
 import EditMoveHandle from '../components/EditMoveHandle';
+import Loader from '../components/Loader'
 
-const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory }, tools: { editActive }, addSumToReducer, update, updateWithoutPost }) => {
+const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory, apiLoading }, tools: { editActive }, addSumToReducer, update, updateWithoutPost }) => {
   // active tools state
   const [isEditActive, setIsEditActive] = React.useState(false)
   const [sum, setSum] = React.useState(0)
@@ -45,6 +46,9 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
 
   // console.log(isEditActive)
   // console.log('renderuje table')
+  console.log(apiLoading)
+  if (apiLoading) return <Loader />
+
 
   const handleEdit = (item, isRowEdited) => {
 
