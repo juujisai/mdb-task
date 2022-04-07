@@ -42,7 +42,7 @@ const ExportImponrtHelperComponent = ({ tools, pcParts, showHelper, handleImport
       handlePost(pcParts.listOfComponents[pcParts.listOfComponents.length - 1])
     }
     if (selectedValue === 'export-put-api') {
-      handlePost(pcParts.listOfComponents)
+      handlePut(pcParts.listOfComponents)
     }
 
 
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     showHelper: (name) => dispatch(showToolHelper(name)),
     handleImport: () => dispatch(handleImportFromNode()),
     handlePost: (data) => dispatch(handlePostToNode(data)),
-    handlePutt: (data) => dispatch(handlePutToNode(data)),
+    handlePut: (data) => dispatch(handlePutToNode(data)),
 
   }
 }

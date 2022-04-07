@@ -44,9 +44,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
     addSumToReducer(sum)
   }, [listOfComponents, addSumToReducer, filterByCategory])
 
-  // console.log(isEditActive)
-  // console.log('renderuje table')
-  console.log(apiLoading)
+
   if (apiLoading) return <Loader />
 
 

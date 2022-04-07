@@ -101,7 +101,20 @@ export const postToNodeFailure = (error) => {
 
 export const handlePostToNode = (data) => {
   return (dispatch) => {
-    console.log('handle post', data)
+    dispatch(postToNodeRequest())
+
+    axios.post(URL, data)
+      .then(response => {
+        console.log('handle post')
+        dispatch(postToNodeSuccess(data))
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(postToNodeFailure(error))
+      })
+
+
+
   }
 }
 
@@ -126,6 +139,18 @@ export const putToNodeFailure = (error) => {
 
 export const handlePutToNode = (data) => {
   return (dispatch) => {
-    console.log('handle put', data)
+    dispatch(putToNodeRequest())
+
+    axios.put(URL, data)
+      .then(response => {
+        console.log('handle put')
+        dispatch(putToNodeSuccess(data))
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(putToNodeFailure(error))
+      })
+
+
   }
 }

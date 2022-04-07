@@ -67,7 +67,7 @@ export const pcPartsReducer = (state = initialStore, action) => {
   if (action.type === IMPORT_FROM_NODE_REQUEST || action.type === POST_TO_NODE_REQUEST || action.type === PUT_TO_NODE_REQUEST) {
     return { ...state, apiLoading: true }
   }
-  if (action.type === IMPORT_FROM_NODE_FAILURE || action.type === POST_TO_NODE_FAILURE || action.type === PUT_TO_NODE_REQUEST) {
+  if (action.type === IMPORT_FROM_NODE_FAILURE || action.type === POST_TO_NODE_FAILURE || action.type === PUT_TO_NODE_FAILURE) {
     return { ...state, apiError: action.payload, apiLoading: false }
   }
   if (action.type === POST_TO_NODE_SUCCESS || action.type === PUT_TO_NODE_SUCCESS) {
