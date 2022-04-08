@@ -25,6 +25,7 @@ const Statistics = ({ pcParts }) => {
         <td className="table-section__td">{item.operator === 'sum' ? 'suma' : 'średnia'}</td>
         <td className="table-section__td">{item.col}</td>
         <td className="table-section__td">{item.col === 'price' && 'poniżej '}{item.value}</td>
+        <td className="table-section__td">{data.length}</td>
         <td className="table-section__td">{item.operator === 'sum' ? sum : avg} zł</td>
 
       </tr>
@@ -48,6 +49,7 @@ const Statistics = ({ pcParts }) => {
                   <th className='table-section__th'>rodzaj</th>
                   <th className='table-section__th'>kolumna</th>
                   <th className='table-section__th'>komórka</th>
+                  <th className='table-section__th'>ilość danych</th>
                   <th className='table-section__th'>policzona wartość</th>
                 </tr>
                 {statsToShow}
