@@ -30,6 +30,9 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
   React.useEffect(() => {
     setIsEditActive(editActive)
 
+    if (editActive) {
+      setEditedField('')
+    }
   }, [editActive])
 
   React.useEffect(() => {
@@ -38,7 +41,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
       d = d.filter(item => item.category === filterByCategory)
     }
 
-
+    // get sum of a table after every table render - so when table contents change the data would be updated
     const sum = d.reduce((partialSum, a) => partialSum + Number(a.price), 0)
     setSum(sum)
     addSumToReducer(sum)
@@ -56,12 +59,15 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
       return console.log('najpierw zakończ edycję poprzedniego')
     }
 
+    // set edited data to controled input
     setEditedField(item)
     setItemName(item.name)
     setItemCompany(item.company)
     setItemModel(item.model)
     setItemCategory(item.category)
     setItemPrice(item.price)
+
+    // make a copy of data
     oldDataRef.current = item
   }
 
@@ -72,8 +78,10 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
 
     const itemToPush = { id: item.id, name: itemName, company: itemCompany, model: itemModel, price: Number(itemPrice), category: itemCategory }
 
+    // delete old item and place new where it should be (replacing the old one)
     copy.splice(idOfItemThatChanges, 1, itemToPush)
 
+    // update list - redux
     update(copy)
     setEditedField('')
 
@@ -82,7 +90,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
   }
 
   const cancelEdition = () => {
-
+    // that will end the selection
     setEditedField('')
 
   }
@@ -93,6 +101,7 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
 
   }
 
+  // if statement to check if there are any filters active
   let dataToShowInTable = listOfComponents
   if (filterByCategory !== 'all') {
 
@@ -100,7 +109,12 @@ const Table = ({ pcParts: { listOfComponents, selectCategories, filterByCategory
   }
 
   const tableContent = dataToShowInTable.map((item, id) => {
-    const isRowEdited = item === editedField
+    let isRowEdited = item === editedField
+    // end edition after turning off the edition option in by main tools button
+    if (!isEditActive) {
+      isRowEdited = false
+    }
+
 
     return (
       <tr className='table-section__tr table-row-draggable' key={id}>
