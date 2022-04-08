@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+# O wykonanym zadaniu
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Zadanie wykonano w `React.Js`, z wykorzystaniem narzędzia Create React App. Do zarządzania stanem aplikacji wykorzystano bibliotekę `Redux`.
 
-## Available Scripts
+## Aplikacja została przesłana na netlify
 
-In the project directory, you can run:
+https://mdb-task-react-bc.netlify.app/
 
-### `npm start`
+### `zadanie podstawowe`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Dodano inputy pozwalające na dodanie nowej pozycji w tabeli. Dane przesyłane są do reducera oraz do localStorage. Można też dodać nową kategorię. Kategorie zapisują się w localStorage.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Aplikacja sprawdza czy localStorage posiada jakieś zapisane dane i przesyła je do odpowiedniego reducera.
 
-### `npm test`
+Do przesłanych danych z inputów dodawane jest unikalne id, generowane przy pomocy biblioteki `uuid`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### `narzędzia`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Poniżej formularza do przesyłania danych znajduje się kilka przycisków, które pozwalają na wykonanie dodatkowych działań w związku z danymi. Narzędzia opiszę w dalszej części opisu.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Wszystkie ikony w aplikacji pochodzą z paczki `react-icons`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### `tabela`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Tabela została wykonana bez wykorzystania dodatkowych bibliotek. Po wciśnięciu przycisku edycji na pasku narzędziowym, możliwe jest usunięcie pozycji z tabeli. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Na końcu tabeli przedstawione jest podsumowanie wszystkich pozycji.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## `Zadania dodatkowe`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### `Zapisywanie danych w localStorage`
 
-## Learn More
+Dane po zapisaniu formularza przesyłane są do localStorage. Edycja i usunięcie pozycji w tabeli również powoduje wysłanie danych do localStorage.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### `Zapisywanie danych w Node`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Jest to moja pierwsza stycznośc z `Node.js`. Wykorzystałem narzędzie `express` do postawienia nowego serwera, utworzyłem w nim 3 endpointy - get, post i put. Serwer został przesłany na serwis `heroku`, skąd można pobierać i edytować dane.
 
-### Code Splitting
+** Repozytorium serwera na github **
+https://github.com/juujisai/mdb-task-node 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Ważne: dane zapisywane są w zmiennej na serwerze. Heroku odświeża te dane co kilka godzin.
 
-### Analyzing the Bundle Size
+Aby przetestować działalność należy włączyć narzędzie `api`, w którym mamy możliwosć pobierania danych z serwera (istnieje możliwość zapisania danych do localStorage), export ostatniej pozycji z tabeli za pomocą post, oraz podmianę całej tabeli w zmiennej za pomocą put. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Zapytania obsługiwane są przez `axiosa`. Dodatkowo wykorzystałem paczkę `redux-thunk` aby możliwe było zwracanie funkcji zamiast obiektu w kreatorze akcji odpowiedzialnym za pobieranie danych z api. Link do api schowany został w plik .env.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### `Podsumowanie kosztów i ilości pozycji `
 
-### Advanced Configuration
+Jest obsługiwane przez narzędzie statystyka w stworzonym przeze mnie pasku narzędziowym. W panelu, który wyskoczy po wciśnięciu przycisku `statystyka`, można wybrać rodzaj statystyki - czy interesuje nas suma czy średnia wartości, można wybrać kolumnę, z której chcemy wybrać interesującą nas wartość.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Dane pojawią się pod tabelą główną.
 
-### Deployment
+### `Opcja edycji dodanej pozycji`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Dane można edytować po wciśnięciu przycisku `edytuj`. Nie można edytować kolejnej pozycji przed zapisem lub anulowaniem edycji poprzedniego rekordu. Zedytowane dane podmieniane są w tabeli i wysyłane do localStorage. 
 
-### `npm run build` fails to minify
+Po wciśnięciu edycji, inputy zmieniają wartość disabled z true na false. Po zapisaniu lub anulowaniu wracają na false.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### `Możliwość filtrowania kategorii`
+
+Dane w tabeli można ograniczyć do poszczególnych kategorii za pomocą narzędzia `wyświetlanie zaawansowane`
+
+### `Możliwość sortowania`
+
+W nagłówkach tabeli znajduje się przycisk pozwalający na sortowanie danych. ** Filtrowanie danych nie powoduje aktualizacji localStorage. ** Jest to działanie celowe, chciałem aby po odświeżeniu dane były dalej w takiej kolejności jak wcześniej.
+
+### `Możliwość dodania nowej kategorii`
+
+Istnieje możliwość dodania nowej kategorii w formularzu dodawania nowych danych do tabeli. Jest to jedna z opcji do wyboru w select kategorii.
+
+### `Drag&drop`
+
+Po wciśnięciu przycisku edycji po prawej części tabeli pojawia się przycisk (dwie równoległe linie), który pozwala na wykonanie operacji przesunięcia i zamiany kolejności w tabeli. Drag&drop pokazuje możliwe miejsca, w które można wstawić dane (hint) oraz miejsce, gdzie aktualnie wstawi się przesuwany rekord. Rekordy nie zamieniają się miejscami, przesuwany rekord wstawiany jest po targetowanym wierszu.
+
+
+### `Export do:`
+
+Eksporty te obsługiwane są przez przycisk exportuj. Brak możliwości exportu bez danych.
+
+`pdf`
+
+Do eksportu do pdf wykorzystałem biblioteki: `jsPdf` oraz `html2canvas`. W związku z tym, że jspdf ma problem z dopasowaniem danych do szerokości okna, postanowiłem zamienić tabelę najpierw do obrazu i dopiero do pliku pdf. Minusem takiej operacji jest brak możliwośći selekcji danych w powstałym pliku pdf. 
+
+`csv`
+
+Export danych do csv obsługiwany jest przez bibliotekę `react-csv`. 
+
+`xml`
+
+Export danych do xml obsługiwany jest przez bibliotekę `export-from-json`. Dane najpierw zmieniane są w json a następnie eksportowane do xml.
+
+### `dodatkowo`
+
+W przycisku `importuj` dodałem możliwość eksportu danych z pliku csv. Po wgraniu pliku csv pojawi nam się możliwość wyboru kolumny do odowiedniego wiersza w pliku, który podesłaliśmy.
+
+Zrobiłem to, ponieważ w przypadku, gdy użytkownik aplikacji wgra plik csv, który nie posiada dokładnie takich samych nagłówków jak te, które wykorzystałem do przetwarzania danych, import będzie błędny. W taki sposób sam użytkownik podaje, która kolumna zawiera jakie dane. W przypadku danych związanych z ceną, możliwe jest podanie jedynie kolumy zawierającej dane liczbowe. W innym przypadu aplikacja pokaże błąd i nie pozwoli przejść dalej.
+
+Jest to jeden z problemów, z jakimi spotykałem się na studiach w oprogramowaniu GIS. Bardzo często po dograniu nowych danych do baz danych wyskakiwał błąd związany z różnymi nazwami nagłówków kolumn. Istaniło kilka reguł aby zrobić to prawidłowo. 
+Myślę, że moje rozwiązanie pozwala na uniknięcie tego problemu i jest dość ciekawe.
+
+Dane po prawidłowym pobraniu przedstawiane są w tabeli - istnieje możliwość zapisania danych w localStorage po wciśnięciu przycisku. 
+
+W zadaniu tym nie korzystałem z dodatkowych bibliotek.
